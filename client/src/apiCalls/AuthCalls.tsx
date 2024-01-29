@@ -19,7 +19,12 @@ export const refreshSession = async (domain = "localhost") => {
 };
 
 export const isAuthTokenValid = async () => {
-    return await trpc.auth.isAuthTokenValid.query();
+    try{
+      return await trpc.auth.isAuthTokenValid.query();
+
+    }catch(err){
+      return false;
+    }
 };
 
 export const createCookie = async (
