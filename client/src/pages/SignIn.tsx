@@ -85,10 +85,7 @@ const SignIn = () => {
 
         <Show when={googleOAuthLink()?.url}>
           <div class="my-2 text-xl">
-            <a
-              href={googleOAuthLink()!.url!}
-              class="flex flex-row py-4 px-8"
-            >
+            <a href={googleOAuthLink()!.url!} class="flex flex-row py-4 px-8">
               <div class="px-2">
                 <GoogleLogo size={30} />
               </div>
@@ -98,10 +95,7 @@ const SignIn = () => {
         </Show>
         <Show when={gitHubOAuthLink()?.url}>
           <div class="my-2 text-xl">
-            <a
-              href={googleOAuthLink()!.url!}
-              class="flex flex-row py-4 px-8"
-            >
+            <a href={gitHubOAuthLink()!.url!} class="flex flex-row py-4 px-8">
               <div class="px-2">
                 <GitHubLogo size={30} />
               </div>

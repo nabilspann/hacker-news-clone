@@ -30,6 +30,7 @@ export default (
 import type { DemoClient } from "../routes";
 export async function demo(trpc: DemoClient) {
   return await trpc.messages.createUser.mutate({ 
-    username: "Baam" 
+    username: "Baam",
+    is_sign_up: true,
   })
 }

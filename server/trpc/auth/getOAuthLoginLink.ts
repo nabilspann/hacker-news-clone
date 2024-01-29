@@ -8,9 +8,12 @@ export default publicProcedure
   .input(z.object({ provider: z.enum(["google", "github"]) }))
   .query(async ({ input, ctx }) => {
     const { provider } = input;
+    console.log("provider", provider)
     const { data, error } = await supabaseClient.auth.signInWithOAuth({
       provider,
     });
+
+    console.log("data", data);
 
     return data;
   });
