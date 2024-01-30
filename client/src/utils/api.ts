@@ -5,7 +5,7 @@ import type { Routes } from "../../../server/trpc/routes";
 import { fetcher } from "./fetcher";
 
 const getBaseUrl = () => {
-  return `http://localhost:8080`;
+  return `http://localhost:8888`;
 };
 
 export const trpc = createTRPCProxyClient<Routes>({
@@ -14,7 +14,7 @@ export const trpc = createTRPCProxyClient<Routes>({
       enabled: () => import.meta.env.DEV,
     }),
     httpBatchLink({
-      url: `${getBaseUrl()}/trpc`,
+      url: `${getBaseUrl()}/.netlify/functions/server/trpc`,
       fetch: fetcher,
     }),
   ],

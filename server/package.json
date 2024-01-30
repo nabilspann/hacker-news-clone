@@ -3,17 +3,23 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.ts",
+  "type": "module",
   "scripts": {
-    "start": "nodemon server.ts | pino-pretty",
+    "start": "nodemon --exec \"tsx startServer.ts\" | pino-pretty",
     "build": "tsc -p tsconfig.json",
     "migrate": "drizzle-kit generate:pg --config=drizzle.config.ts",
     "drizzle-studio": "npx drizzle-kit studio --port 5000 --verbose"
+  },
+  "exports": {
+      "import": "./index.ts",
+      "default": "./index.mjs"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
     "@2toad/profanity": "^2.2.0",
     "@fastify/auth": "^4.4.0",
+    "@fastify/aws-lambda": "^4.0.0",
     "@fastify/cookie": "^9.2.0",
     "@fastify/cors": "^8.4.1",
     "@supabase/supabase-js": "^2.39.0",
@@ -35,7 +41,7 @@
     "nodemon": "^3.0.1",
     "pino-pretty": "^10.2.3",
     "supabase": "^1.123.4",
-    "ts-node": "^10.9.1",
+    "tsx": "^4.7.0",
     "typescript": "^5.2.2"
   }
 }

@@ -1,8 +1,10 @@
 import { Kysely, PostgresDialect } from "kysely";
 import { Kyselify } from "drizzle-orm/kysely";
-import { Pool } from "pg";
+import pg from "pg";
 import "dotenv/config";
 import { users, posts, comments } from "./schemas";
+
+const { Pool } = pg;
 
 if (!process.env.DATABASE_URL) {
   throw new Error("DATABASE_URL is missing");

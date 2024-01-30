@@ -12,10 +12,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@fastify/aws-lambda": "^4.0.0",
     "@netlify/functions": "^2.4.1",
     "@supabase/supabase-js": "^2.39.1",
     "dotenv": "^16.3.1",
     "dotenv-safe": "^8.2.0",
+    "server": "file:../server",
     "unique-names-generator": "^4.7.1",
     "webpack": "^5.89.0",
     "webpack-node-externals": "^3.0.0"
