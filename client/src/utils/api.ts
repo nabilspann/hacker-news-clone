@@ -5,7 +5,7 @@ import type { Routes } from "../../../server/trpc/routes";
 import { fetcher } from "./fetcher";
 
 const getBaseUrl = () => {
-  return `http://localhost:8888`;
+  return `http://localhost:8080`;
 };
 
 export const trpc = createTRPCProxyClient<Routes>({

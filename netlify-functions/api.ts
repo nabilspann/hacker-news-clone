@@ -1,8 +1,8 @@
 import { createClient } from "@supabase/supabase-js";
 import "dotenv/config";
 
-if (!process.env.SUPABASE_URL) {
-  throw new Error("SUPABASE_URL is missing");
+if (!process.env.PROJECT_URL) {
+  throw new Error("SPROJECT_URL is missing");
 }
 
 if (!process.env.SUPABASE_KEY) {
@@ -10,6 +10,6 @@ if (!process.env.SUPABASE_KEY) {
 }
 
 export const supabase = createClient(
-  process.env.SUPABASE_URL,
+  process.env.PROJECT_URL,
   process.env.SUPABASE_KEY
 );

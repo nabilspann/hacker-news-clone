@@ -13,7 +13,10 @@ export function initServer() {
     logger: true,
   });
   fastify.register(cors, {
-    origin: ["http://localhost:3000"],
+    origin: [
+      "http://localhost:3000",
+      "https://nabil-hacker-news-clone.netlify.app",
+    ],
     credentials: true,
   });
 
