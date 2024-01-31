@@ -9,8 +9,8 @@ import { publicProcedure } from "../trpc";
 import { kyselyDb } from "../../db/kyselyDb";
 export default publicProcedure.query(async () => {
     const initDate = Date.now();
-    await kyselyDb
-    .selectFrom(postsTableName)
+    // await kyselyDb
+    // .selectFrom(postsTableName)
     // .innerJoin("profiles as users", (join) =>
     //   join.onRef("posts.user_id", "=", "users.user_id")
     // )
@@ -21,7 +21,7 @@ export default publicProcedure.query(async () => {
     //   "posts.created_at",
     //   "title",
     // ])
-    .executeTakeFirstOrThrow();
+    // .executeTakeFirstOrThrow();
     // kyselyDb.connection
   const laterDate = Date.now()
     console.log("diff time", laterDate - initDate);
