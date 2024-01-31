@@ -28,16 +28,12 @@ export interface KyselyDatabase {
     comments: Kyselify<typeof comments>
 };
 
-let tmp = new Pool({
-  database: "postgres",
-  host: "aws-0-us-west-1.pooler.supabase.com",
-  port: 6543,
-  user: "postgres.tvhazjxyrbelmznnsluy",
-  password,
-  // ssl: {
-  //   ca: sslCa
-  // }
-});
+let tmp = new Pool({ connectionString })
+setTimeout(()=>{
+  tmp.end()
+  process.exit()
+}, 5e3)
+
 // setTimeout(()=>{
 //   console.log("connection ending")
 //   tmp.end()
@@ -45,9 +41,9 @@ let tmp = new Pool({
 
 export const kyselyDb = new Kysely<KyselyDatabase>({
   dialect: new PostgresDialect({
-    pool: new Pool({
-        connectionString,
-    })
-    // pool: tmp,
+    // pool: new Pool({
+    //     connectionString,
+    // })
+    pool: tmp,
   }),
 });
