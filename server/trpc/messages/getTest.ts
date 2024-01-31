@@ -21,7 +21,7 @@ export default publicProcedure.query(async () => {
       "posts.created_at",
       "title",
     ])
-    .executeTakeFirstOrThrow();
+    .execute();
     // kyselyDb.connection
     console.log("postsRes", postsRes)
   const laterDate = Date.now()

@@ -6,9 +6,7 @@ import { fetcher } from "./fetcher";
 import { DEV } from "solid-js";
 
 const getBaseUrl = () => {
-  return DEV
-    ? `http://localhost:8080`
-    : "https://nabil-hacker-news-clone.netlify.app";
+  return DEV ? `http://localhost:8080` : "https://keen-dusk-25cab6.netlify.app";
 };
 
 export const trpc = createTRPCProxyClient<Routes>({
