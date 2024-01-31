@@ -9,7 +9,7 @@
     "start": "concurrently \"npm:start:BE\" \"npm:start:FE\"",
     "test": "echo \"Error: no test specified\" && exit 1",
     "demo:trpc": "cd server && tsx trpc/demo.ts",
-    "build": "cd client npm run build"
+    "build": "cd client && npm run build"
   },
   "author": "",
   "license": "ISC",
