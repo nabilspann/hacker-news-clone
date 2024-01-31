@@ -4,12 +4,15 @@ import PostHeadline from "../components/PostHeadline";
 import { A } from "@solidjs/router";
 
 const Home = () => {
-  const [posts] = createResource(getAllPosts);
+  // const [posts] = createResource(getAllPosts);
+  const [posts, setPosts] = createSignal([{title: "", post_id: "", username: ""}]);
   const [test, setTest] = createSignal("");
 
   onMount(async () => {
+    const postsRes = await getAllPosts();
     const testRes = await getTest();
     setTest(testRes);
+    setPosts(postsRes);
   });
 
   return (
