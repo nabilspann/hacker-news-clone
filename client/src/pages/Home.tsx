@@ -5,15 +5,8 @@ import { A } from "@solidjs/router";
 
 const Home = () => {
   // const [posts] = createResource(getAllPosts);
-  const [posts, setPosts] = createSignal([{title: "", post_id: "", username: ""}]);
-  const [test, setTest] = createSignal("");
-
-  onMount(async () => {
-    const postsRes = await getAllPosts();
-    const testRes = await getTest();
-    setTest(testRes);
-    setPosts(postsRes);
-  });
+  const [posts] = createResource(getAllPosts);
+  const [test] = createResource(getTest);
 
   return (
     <div class="flex flex-col justify-center items-center">
@@ -21,7 +14,7 @@ const Home = () => {
       <A href="/create-post" class="p-3 m-2 bg-sky-500 rounded-lg">
         + Create a new post
       </A>
-      <For each={posts()}>
+      {/* <For each={posts()}>
         {(post) => (
           <PostHeadline
             title={post.title}
@@ -29,7 +22,7 @@ const Home = () => {
             username={post.username}
           />
         )}
-      </For>
+      </For> */}
     </div>
   );
 };
