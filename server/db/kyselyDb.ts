@@ -18,9 +18,9 @@ export interface KyselyDatabase {
     comments: Kyselify<typeof comments>
 };
 
-export const kyselyDb = await new Kysely<KyselyDatabase>({
-  dialect: await new PostgresDialect({
-    pool: await new Pool({
+export const kyselyDb = new Kysely<KyselyDatabase>({
+  dialect: new PostgresDialect({
+    pool: new Pool({
         connectionString
     })
   }),
