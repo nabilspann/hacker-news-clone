@@ -8,6 +8,7 @@ export const getPostInput = createSelectSchema(posts);
 import { publicProcedure } from "../trpc";
 import { kyselyDb } from "../../db/kyselyDb";
 export default publicProcedure.query(async () => {
+    const initDate = Date.now();
   const postsRes = await kyselyDb
     .selectFrom(postsTableName)
     .innerJoin("profiles as users", (join) =>
@@ -21,7 +22,10 @@ export default publicProcedure.query(async () => {
       "title",
     ])
     .execute();
-  console.log("postsRes", postsRes);
+    // kyselyDb.connection
+  const laterDate = Date.now()
+    console.log("diff time", laterDate - initDate);
+
   return "test";
 });
 
