@@ -2,7 +2,6 @@ import awsLambdaFastify from "@fastify/aws-lambda";
 import { Config, Context, Handler, HandlerContext, HandlerEvent } from "@netlify/functions";
 import { initServer } from "server";
 
-console.error("console log deez nuts")
 const proxy = awsLambdaFastify(initServer());
 // export default async (req: Request, context: Context) => {
 // //   const proxy = awsLambdaFastify(initServer());
