@@ -46,7 +46,6 @@ export default publicProcedure
 import type { DemoClient } from "../routes";
 import { supabaseClient } from "../../db/supabase";
 export async function demo(trpc: DemoClient) {
-//   return await trpc.auth.createCookie.query({ accessToken: "", refreshToken: "", domain: "localhost", accessTokenExpirationDate: new Date(), refreshTokenExpirationDate: new Date()});
   return await trpc.auth.createCookie.query({
     accessToken: "",
     refreshToken: "",

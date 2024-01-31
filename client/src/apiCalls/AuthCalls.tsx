@@ -1,3 +1,4 @@
+import { DEV } from "solid-js";
 import { trpc } from "../utils/api";
 
 type OAuthLinkProvider = "google" | "github";
@@ -14,8 +15,9 @@ export const updateUser = async (username: string) => {
     return await trpc.auth.updateUser.mutate({ username });
 };
 
-export const refreshSession = async (domain = "localhost") => {
-    return await trpc.auth.refreshSession.query({ domain });
+export const refreshSession = async () => {
+  const domain = DEV ? "localhost" : "nabil-hacker-news-clone.netlify.app";
+  return await trpc.auth.refreshSession.query({ domain });
 };
 
 export const isAuthTokenValid = async () => {

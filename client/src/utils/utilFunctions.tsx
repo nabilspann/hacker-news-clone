@@ -2,6 +2,7 @@ import { Location, useNavigate, Navigator } from "@solidjs/router";
 import { ErrorType } from "./interfaces";
 import { cookieStorage } from "@solid-primitives/storage";
 import { createCookie, getUser } from "../apiCalls/AuthCalls";
+import { DEV } from "solid-js";
 
 interface TimeDifference {
   minutes: number;
@@ -121,7 +122,13 @@ export const storeTokenFromUrl = async (location: Location<unknown>) => {
   if (accessToken && expires) {
     const refreshExpirationDate = new Date();
     refreshExpirationDate.setDate(refreshExpirationDate.getDate() + 1);
-    await createCookie(accessToken, getJwtExpirationDate(Number(expires)).toString(), refreshToken, refreshExpirationDate.toString(), "localhost")
+    await createCookie(
+      accessToken,
+      getJwtExpirationDate(Number(expires)).toString(),
+      refreshToken,
+      refreshExpirationDate.toString(),
+      DEV ? "localhost" : "nabil-hacker-news-clone.netlify.app"
+    );
   }
   return accessToken;
 };

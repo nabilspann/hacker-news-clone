@@ -1,4 +1,4 @@
-import { createRoot, createSignal } from "solid-js";
+import { DEV, createRoot, createSignal } from "solid-js";
 import { Location } from "@solidjs/router";
 import { storeTokenFromUrl } from "./utilFunctions";
 import { deleteCookie, refreshSession } from "../apiCalls/AuthCalls";
@@ -15,7 +15,9 @@ const authStore = () => {
 
   const signOut = async () => {
     try{
-      await deleteCookie("localhost");
+      await deleteCookie(
+        DEV ? "localhost" : "nabil-hacker-news-clone.netlify.app"
+      );
       setIsAuthorized(false);
     }catch(err){
       console.log("delete cookie error", err);

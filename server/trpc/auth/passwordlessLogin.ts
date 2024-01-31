@@ -13,9 +13,6 @@ export default (
       const { email } = req.input;
       const { data } = await supabaseClient.auth.signInWithOtp({
         email,
-        options: {
-          emailRedirectTo: "http://localhost:3000",
-        },
       });
 
       return data;
