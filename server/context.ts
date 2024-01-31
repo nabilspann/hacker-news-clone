@@ -1,12 +1,13 @@
 import { inferAsyncReturnType } from "@trpc/server";
 import { CreateFastifyContextOptions } from "@trpc/server/adapters/fastify";
 import { authTokenCookieName, refreshTokenCookieName } from "./utils/constants";
+import { PostgresJsDatabase } from "drizzle-orm/postgres-js";
 
 type TokenType = string | undefined;
-export function createContext({
-  req,
-  res,
-}: CreateFastifyContextOptions) {
+export function createContext(
+  { req, res }: CreateFastifyContextOptions,
+  database: PostgresJsDatabase<Record<string, never>>
+) {
   //   const user = { name: req.headers.username ?? "anonymous" };
   const cookiesArr = req.headers.cookie?.split(";") || [];
 
@@ -30,7 +31,9 @@ export function createContext({
   return {
     authToken,
     refreshToken,
-    setCookie: (k:string, v:string, opts:string='')=>res.header('set-cookie', `${k}=${v}; ${opts}`),
+    setCookie: (k: string, v: string, opts: string = "") =>
+      res.header("set-cookie", `${k}=${v}; ${opts}`),
+    database,
   };
 }
 

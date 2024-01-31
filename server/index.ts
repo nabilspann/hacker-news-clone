@@ -9,7 +9,7 @@ import { createContext } from "./context";
 import { pathToFileURL } from "url";
 import { PostgresJsDatabase } from "drizzle-orm/postgres-js";
 
-export function initServer() {
+export function initServer(database: PostgresJsDatabase<Record<string, never>>) {
   const fastify = Fastify({
     logger: true,
   });
@@ -36,7 +36,7 @@ export function initServer() {
     prefix: "/.netlify/functions/server/trpc",
     trpcOptions: {
       router: routes,
-      createContext: (ctx) => createContext(ctx),
+      createContext: (ctx) => createContext(ctx, database),
       onError({ path, error }) {
         // report to error monitoring
         console.error(`Error in tRPC handler on path '${path}':`, error);

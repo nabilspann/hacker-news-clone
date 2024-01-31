@@ -11,9 +11,10 @@ import { kyselyDb } from "../../db/kyselyDb";
 import { db } from "../../db";
 import { supabaseClient } from "../../db/supabase";
 
-const prepared = db.select().from(posts).prepare("getTestPrepare");
-export default publicProcedure.query(async () => {
-    const initDate = Date.now();
+// const prepared = db.select().from(posts).prepare("getTestPrepare");
+export default publicProcedure.query(async ({ctx}) => {
+  const passedDb = ctx.database;
+  const initDate = Date.now();
   // const postsRes = await kyselyDb
   //   .selectFrom(postsTableName)
   //   // .innerJoin("profiles as users", (join) =>
@@ -28,16 +29,17 @@ export default publicProcedure.query(async () => {
   //   // ])
   //   .selectAll()
   //   .execute();
-    // const postsRes = await db.select().from(posts);
-    // const postsRes = await prepared.execute();
-    // const postsRes = await supabaseClient.from(postsTableName).select()
-    // kyselyDb.connection
-    // console.log("postsRes", postsRes)
-  const laterDate = Date.now()
-    console.log("diff time", laterDate - initDate);
+  // const postsRes = await db.select().from(posts);
+  // const postsRes = await prepared.execute();
+  const postsRes = await passedDb.select().from(posts);
+  // const postsRes = await supabaseClient.from(postsTableName).select()
+  // kyselyDb.connection
+  console.log("postsRes", postsRes)
+  const laterDate = Date.now();
+  console.log("diff time", laterDate - initDate);
 
-  // return "test";
-  return prepared.execute();
+  return "test";
+  // return prepared.execute();
 });
 
 /***   Demo   ***/
