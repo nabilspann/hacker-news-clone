@@ -18,10 +18,17 @@ export interface KyselyDatabase {
     comments: Kyselify<typeof comments>
 };
 
+let tmp = new Pool({ connectionString })
+setTimeout(()=>{
+  console.log("connection ending")
+  tmp.end()
+}, 5e3)
+
 export const kyselyDb = new Kysely<KyselyDatabase>({
   dialect: new PostgresDialect({
-    pool: new Pool({
-        connectionString
-    })
+    // pool: new Pool({
+    //     connectionString
+    // })
+    pool: tmp,
   }),
 });
