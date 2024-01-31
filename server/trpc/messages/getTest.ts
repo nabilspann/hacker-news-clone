@@ -9,7 +9,7 @@ import { publicProcedure } from "../trpc";
 import { kyselyDb } from "../../db/kyselyDb";
 export default publicProcedure.query(async () => {
     const initDate = Date.now();
-  const postsRes = kyselyDb
+  const postsRes = await kyselyDb
     .selectFrom(postsTableName)
     .innerJoin("profiles as users", (join) =>
       join.onRef("posts.user_id", "=", "users.user_id")
