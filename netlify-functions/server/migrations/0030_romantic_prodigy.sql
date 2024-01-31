@@ -1,0 +1,1 @@
+ALTER TABLE "profiles" ADD COLUMN "is_edited" boolean DEFAULT true NOT NULL;

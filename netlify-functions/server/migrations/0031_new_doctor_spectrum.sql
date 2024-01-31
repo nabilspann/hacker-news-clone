@@ -1,0 +1,1 @@
+ALTER TABLE "profiles" ADD COLUMN "is_sign_up" boolean DEFAULT false NOT NULL;
