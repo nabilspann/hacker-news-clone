@@ -21,7 +21,7 @@ export default publicProcedure.query(async () => {
       "posts.created_at",
       "title",
     ])
-    .execute();
+    .executeTakeFirstOrThrow();
     // kyselyDb.connection
   const laterDate = Date.now()
     console.log("diff time", laterDate - initDate);
