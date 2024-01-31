@@ -10,16 +10,11 @@ if (!process.env.DATABASE_URL) {
   throw new Error("DATABASE_URL is missing");
 }
 
-if (!process.env.DATABASE_PASSWORD) {
-  throw new Error("DATABASE_PASSWORD is missing");
-}
-
 // if (!process.env.SSL_CA) {
 //   throw new Error("SSL_CA is missing");
 // }
 
 const connectionString = process.env.DATABASE_URL;
-const password = process.env.DATABASE_PASSWORD;
 // const sslCa = process.env.SSL_CA;
 
 export interface KyselyDatabase {

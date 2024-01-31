@@ -7,7 +7,7 @@ import { DEV } from "solid-js";
 
 const getBaseUrl = () => {
   return DEV
-    ? `http://localhost:8080`
+    ? `http://localhost:8888`
     : "https://nabil-hacker-news-clone.netlify.app"
 };
 

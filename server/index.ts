@@ -7,6 +7,7 @@ import { routes, type Routes } from "./trpc/routes";
 import { db } from "./db";
 import { createContext } from "./context";
 import { pathToFileURL } from "url";
+import { PostgresJsDatabase } from "drizzle-orm/postgres-js";
 
 export function initServer() {
   const fastify = Fastify({
@@ -15,7 +16,7 @@ export function initServer() {
   fastify.register(cors, {
     origin: [
       "http://localhost:3000",
-      "https://nabil-hacker-news-clone.netlify.app"
+      "https://nabil-hacker-news-clone.netlify.app",
     ],
     credentials: true,
   });
@@ -35,12 +36,12 @@ export function initServer() {
     prefix: "/.netlify/functions/server/trpc",
     trpcOptions: {
       router: routes,
-      createContext,
+      createContext: (ctx) => createContext(ctx),
       onError({ path, error }) {
         // report to error monitoring
         console.error(`Error in tRPC handler on path '${path}':`, error);
       },
-    } satisfies FastifyTRPCPluginOptions<Routes>['trpcOptions'],
+    } satisfies FastifyTRPCPluginOptions<Routes>["trpcOptions"],
   });
 
   fastify.register(fastifyCookie);
