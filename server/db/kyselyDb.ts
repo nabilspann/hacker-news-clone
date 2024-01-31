@@ -46,7 +46,7 @@ let tmp = new Pool({
 export const kyselyDb = new Kysely<KyselyDatabase>({
   dialect: new PostgresDialect({
     pool: new Pool({
-        connectionString: ""
+        connectionString,
     })
     // pool: tmp,
   }),
