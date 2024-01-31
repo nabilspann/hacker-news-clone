@@ -1,9 +1,9 @@
 import Fastify from "fastify";
 import fastifyCookie from "@fastify/cookie";
 import { migrate } from "drizzle-orm/postgres-js/migrator";
-import { fastifyTRPCPlugin } from "@trpc/server/adapters/fastify";
+import { FastifyTRPCPluginOptions, fastifyTRPCPlugin } from "@trpc/server/adapters/fastify";
 import cors from "@fastify/cors";
-import { routes } from "./trpc/routes";
+import { routes, type Routes } from "./trpc/routes";
 import { db } from "./db";
 import { createContext } from "./context";
 import { pathToFileURL } from "url";
@@ -33,7 +33,14 @@ export function initServer() {
 
   fastify.register(fastifyTRPCPlugin, {
     prefix: "/.netlify/functions/server/trpc",
-    trpcOptions: { router: routes, createContext },
+    trpcOptions: {
+      router: routes,
+      createContext,
+      onError({ path, error }) {
+        // report to error monitoring
+        console.error(`Error in tRPC handler on path '${path}':`, error);
+      },
+    } satisfies FastifyTRPCPluginOptions<Routes>['trpcOptions'],
   });
 
   fastify.register(fastifyCookie);

@@ -1,13 +1,15 @@
 import { For, createResource } from "solid-js";
-import { getAllPosts } from "../apiCalls/CommentSectionCalls";
+import { getAllPosts, getTest } from "../apiCalls/CommentSectionCalls";
 import PostHeadline from "../components/PostHeadline";
 import { A } from "@solidjs/router";
 
 const Home = () => {
   const [posts] = createResource(getAllPosts);
+  const [test] = createResource(getTest);
 
   return (
     <div class="flex flex-col justify-center items-center">
+      <div>{test()}</div>
       <A href="/create-post" class="p-3 m-2 bg-sky-500 rounded-lg">
         + Create a new post
       </A>

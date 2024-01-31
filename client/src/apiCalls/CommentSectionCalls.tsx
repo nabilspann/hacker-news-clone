@@ -61,3 +61,10 @@ export const getAllPosts = async () => {
 export const submitPost = async (title: string, description: string) => {
   return await trpc.messages.createPost.mutate({title, description});
 };
+
+export const getTest = async () => {
+  const test = await trpc.messages.getTest.query();
+  // return await trpc.messages.getTest.query();
+  console.log("test", test)
+  return test;
+}
