@@ -21,7 +21,7 @@ export default publicProcedure.query(async () => {
       "title",
     ])
     .execute();
-//   console.log("postsRes", postsRes);
+  console.log("postsRes", postsRes);
   return "test";
 });
 
