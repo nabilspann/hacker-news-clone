@@ -5,7 +5,7 @@ import { A } from "@solidjs/router";
 
 const Home = () => {
   // const [posts] = createResource(getAllPosts);
-  const [posts] = createResource(getAllPosts);
+  // const [posts] = createResource(getAllPosts);
   const [test] = createResource(getTest);
 
   return (
