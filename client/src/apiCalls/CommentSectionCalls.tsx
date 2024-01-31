@@ -52,7 +52,10 @@ export const getAdditionalComments = async (
 };
 
 export const getAllPosts = async () => {
-  return await trpc.messages.getAllPosts.query();
+  const getAllPosts = await trpc.messages.getAllPosts.query();
+  console.log("getAllPosts", getAllPosts);
+  // return await trpc.messages.getAllPosts.query();
+  return getAllPosts;
 };
 
 export const submitPost = async (title: string, description: string) => {
