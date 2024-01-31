@@ -29,10 +29,10 @@ export interface KyselyDatabase {
 };
 
 let tmp = new Pool({ connectionString })
-setTimeout(()=>{
-  tmp.end()
-  process.exit()
-}, 5e3)
+// setTimeout(()=>{
+//   tmp.end()
+//   process.exit()
+// }, 5e3)
 
 // setTimeout(()=>{
 //   console.log("connection ending")
