@@ -29,14 +29,15 @@ export default publicProcedure.query(async () => {
   //   .selectAll()
   //   .execute();
     // const postsRes = await db.select().from(posts);
-    const postsRes = await prepared.execute();
+    // const postsRes = await prepared.execute();
     // const postsRes = await supabaseClient.from(postsTableName).select()
     // kyselyDb.connection
-    console.log("postsRes", postsRes)
+    // console.log("postsRes", postsRes)
   const laterDate = Date.now()
     console.log("diff time", laterDate - initDate);
 
-  return "test";
+  // return "test";
+  return prepared.execute();
 });
 
 /***   Demo   ***/

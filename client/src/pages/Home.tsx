@@ -9,7 +9,7 @@ const Home = () => {
 
   return (
     <div class="flex flex-col justify-center items-center">
-      <div>{test()}</div>
+      <div>{test.loading ? "loading" : "DONE"}</div>
       <A href="/create-post" class="p-3 m-2 bg-sky-500 rounded-lg">
         + Create a new post
       </A>
