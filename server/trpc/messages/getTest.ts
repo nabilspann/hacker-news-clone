@@ -8,6 +8,7 @@ import { posts, postsTableName } from "../../db/schemas";
 import { publicProcedure } from "../trpc";
 import { kyselyDb } from "../../db/kyselyDb";
 import { db } from "../../db";
+import { supabaseClient } from "../../db/supabase";
 export default publicProcedure.query(async () => {
     const initDate = Date.now();
 //   const postsRes = await kyselyDb
@@ -23,7 +24,8 @@ export default publicProcedure.query(async () => {
 //       "title",
 //     ])
 //     .execute();
-    const postsRes = await db.select().from(posts);
+    // const postsRes = await db.select().from(posts);
+    const postsRes = await supabaseClient.from(postsTableName).select()
     // kyselyDb.connection
     console.log("postsRes", postsRes)
   const laterDate = Date.now()
