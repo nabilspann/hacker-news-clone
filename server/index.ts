@@ -15,8 +15,7 @@ export function initServer() {
   fastify.register(cors, {
     origin: [
       "http://localhost:3000",
-      "https://nabil-hacker-news-clone.netlify.app",
-      "https://keen-dusk-25cab6.netlify.app",
+      "https://nabil-hacker-news-clone.netlify.app"
     ],
     credentials: true,
   });

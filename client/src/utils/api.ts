@@ -8,7 +8,7 @@ import { DEV } from "solid-js";
 const getBaseUrl = () => {
   return DEV
     ? `http://localhost:8080`
-    : "https://nabil-hacker-news-clone.netlify.app/";
+    : "https://nabil-hacker-news-clone.netlify.app";
 };
 
 export const trpc = createTRPCProxyClient<Routes>({
