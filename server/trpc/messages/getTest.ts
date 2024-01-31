@@ -1,8 +1,8 @@
 import { posts, postsTableName } from "../../db/schemas";
 
 /***   INPUT   ***/
-import { createSelectSchema } from "drizzle-zod";
-export const getPostInput = createSelectSchema(posts);
+// import { createSelectSchema } from "drizzle-zod";
+// export const getPostInput = createSelectSchema(posts);
 
 /***   Query   ***/
 import { publicProcedure } from "../trpc";
@@ -30,8 +30,8 @@ export default publicProcedure.query(async () => {
 });
 
 /***   Demo   ***/
-// npm run demo:trpc messages/getAllPosts
-import type { DemoClient } from "../routes";
-export async function demo(trpc: DemoClient) {
-  return await trpc.messages.getTest.query();
-}
+// npm run demo:trpc messages/getTest
+// import type { DemoClient } from "../routes";
+// export async function demo(trpc: DemoClient) {
+//   return await trpc.messages.getTest.query();
+// }
