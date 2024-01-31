@@ -14,16 +14,17 @@ export default publicProcedure.query(async () => {
     const initDate = Date.now();
   const postsRes = await kyselyDb
     .selectFrom(postsTableName)
-    .innerJoin("profiles as users", (join) =>
-      join.onRef("posts.user_id", "=", "users.user_id")
-    )
-    .select([
-      "posts.user_id",
-      "post_id",
-      "username",
-      "posts.created_at",
-      "title",
-    ])
+    // .innerJoin("profiles as users", (join) =>
+    //   join.onRef("posts.user_id", "=", "users.user_id")
+    // )
+    // .select([
+    //   "posts.user_id",
+    //   "post_id",
+    //   "username",
+    //   "posts.created_at",
+    //   "title",
+    // ])
+    .selectAll()
     .execute();
     // const postsRes = await db.select().from(posts);
     // const postsRes = await supabaseClient.from(postsTableName).select()
