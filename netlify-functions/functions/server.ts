@@ -14,7 +14,8 @@ import "dotenv/config";
 
 // export const db: any = drizzle(client);
 
-const proxy = awsLambdaFastify(initServer());
+const server = initServer();
+const proxy = awsLambdaFastify(server);
 const handler = proxy;
 
 export { handler }
