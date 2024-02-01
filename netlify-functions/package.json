@@ -22,28 +22,10 @@
     "server": "file:../server",
     "unique-names-generator": "^4.7.1",
     "webpack": "^5.89.0",
-    "webpack-node-externals": "^3.0.0",
-    "@2toad/profanity": "^2.2.0",
-    "@fastify/auth": "^4.4.0",
-    "@fastify/cookie": "^9.2.0",
-    "@fastify/cors": "^8.4.1",
-    "@trpc/server": "^10.43.0",
-    "drizzle-zod": "^0.5.1",
-    "fastify": "^4.24.3",
-    "kysely": "^0.26.3",
-    "pg": "^8.11.3",
-    "zod": "^3.22.4"
+    "webpack-node-externals": "^3.0.0"
   },
   "devDependencies": {
     "ts-node": "^10.9.2",
-    "typescript": "^5.3.3",
-    "@trpc/client": "^10.43.0",
-    "@types/node": "^20.8.9",
-    "@types/pg": "^8.10.9",
-    "drizzle-kit": "^0.19.13",
-    "nodemon": "^3.0.1",
-    "pino-pretty": "^10.2.3",
-    "supabase": "^1.123.4",
-    "tsx": "^4.7.0"
+    "typescript": "^5.3.3"
   }
 }

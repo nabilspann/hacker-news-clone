@@ -5,8 +5,7 @@ import { PostgresJsDatabase } from "drizzle-orm/postgres-js";
 
 type TokenType = string | undefined;
 export function createContext(
-  { req, res }: CreateFastifyContextOptions,
-  database: PostgresJsDatabase<Record<string, never>>
+  { req, res }: CreateFastifyContextOptions
 ) {
   //   const user = { name: req.headers.username ?? "anonymous" };
   const cookiesArr = req.headers.cookie?.split(";") || [];
@@ -33,7 +32,6 @@ export function createContext(
     refreshToken,
     setCookie: (k: string, v: string, opts: string = "") =>
       res.header("set-cookie", `${k}=${v}; ${opts}`),
-    database,
   };
 }
 

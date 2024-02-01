@@ -1,1 +1,0 @@
-ALTER TABLE "posts" ADD COLUMN "num_of_children" integer DEFAULT 0 NOT NULL;

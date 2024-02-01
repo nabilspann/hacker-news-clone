@@ -1,6 +1,6 @@
 import awsLambdaFastify from "@fastify/aws-lambda";
 // import { Config, Context, Handler, HandlerContext, HandlerEvent } from "@netlify/functions";
-import { initServer } from "../server";
+import { initServer } from "server";
 import { PostgresJsDatabase, drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
 import "dotenv/config";
@@ -12,10 +12,9 @@ import "dotenv/config";
 // const connectionString = process.env.DATABASE_URL;
 // export const client = postgres(connectionString);
 
-// export const db: any = drizzle(client);
+// export const db = drizzle(client);
 
-const server = initServer();
-const proxy = awsLambdaFastify(server);
+const proxy = awsLambdaFastify(initServer());
 const handler = proxy;
 
 export { handler }

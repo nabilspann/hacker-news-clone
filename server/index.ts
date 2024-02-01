@@ -8,8 +8,9 @@ import { db } from "./db";
 import { createContext } from "./context";
 import { pathToFileURL } from "url";
 import { PostgresJsDatabase } from "drizzle-orm/postgres-js";
+import { posts } from "./db/schemas";
 
-export function initServer(database: PostgresJsDatabase<Record<string, never>>) {
+export function initServer() {
   const fastify = Fastify({
     logger: true,
   });
@@ -22,7 +23,8 @@ export function initServer(database: PostgresJsDatabase<Record<string, never>>) 
   });
 
   fastify.get("/.netlify/functions/server", (req, res) => {
-    res.send({ ping: "pong" });
+    const postRes = db.select().from(posts);
+    res.send({ ping: "pong", postRes });
   });
 
   // migrate(db, { migrationsFolder: "./migrations" })
@@ -36,7 +38,7 @@ export function initServer(database: PostgresJsDatabase<Record<string, never>>) 
     prefix: "/.netlify/functions/server/trpc",
     trpcOptions: {
       router: routes,
-      createContext: (ctx) => createContext(ctx, database),
+      createContext,
       onError({ path, error }) {
         // report to error monitoring
         console.error(`Error in tRPC handler on path '${path}':`, error);

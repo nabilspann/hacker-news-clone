@@ -12,8 +12,7 @@ import { db } from "../../db";
 import { supabaseClient } from "../../db/supabase";
 
 // const prepared = db.select().from(posts).prepare("getTestPrepare");
-export default publicProcedure.query(async ({ctx}) => {
-  const passedDb = ctx.database;
+export default publicProcedure.query(async () => {
   const initDate = Date.now();
   // const postsRes = await kyselyDb
   //   .selectFrom(postsTableName)
@@ -31,10 +30,9 @@ export default publicProcedure.query(async ({ctx}) => {
   //   .execute();
   // const postsRes = await db.select().from(posts);
   // const postsRes = await prepared.execute();
-  const postsRes = await passedDb.select().from(posts);
   // const postsRes = await supabaseClient.from(postsTableName).select()
   // kyselyDb.connection
-  console.log("postsRes", postsRes)
+  // console.log("postsRes", postsRes)
   const laterDate = Date.now();
   console.log("diff time", laterDate - initDate);
 
