@@ -22,8 +22,9 @@ export function initServer() {
     credentials: true,
   });
 
-  fastify.get("/.netlify/functions/server", (req, res) => {
-    const postRes = db.select().from(posts);
+  fastify.get("/.netlify/functions/server", async (req, res) => {
+    const postRes = await db.select().from(posts);
+    console.log("postRes", postRes)
     res.send({ ping: "pong", postRes });
   });
 
