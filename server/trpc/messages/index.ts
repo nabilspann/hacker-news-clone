@@ -13,7 +13,6 @@ import getPostAndComments from './getPostAndComments'
 import getRepliedComments from './getRepliedComments'
 import removeCommentEntirely from './removeCommentEntirely'
 import getAllPosts from "./getAllPosts"
-import getTest from "./getTest"
 
 export default router({
   createComment,
@@ -27,5 +26,4 @@ export default router({
   getRepliedComments,
   removeCommentEntirely,
   getAllPosts,
-  getTest,
 })

@@ -1,5 +1,5 @@
 import { For, createResource, createSignal, onMount } from "solid-js";
-import { getAllPosts, getTest } from "../apiCalls/CommentSectionCalls";
+import { getAllPosts } from "../apiCalls/CommentSectionCalls";
 import PostHeadline from "../components/PostHeadline";
 import { A } from "@solidjs/router";
 

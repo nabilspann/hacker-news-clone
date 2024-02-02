@@ -30,17 +30,15 @@ export function initServer() {
   });
 
   fastify.get("/", async (req, res) => {
-    const postRes = await db.select().from(posts);
-    console.log("postRes", postRes)
-    res.send({ ping: "pong", postRes });
+    res.send({ ping: "pong" });
   });
 
-  // migrate(db, { migrationsFolder: "./migrations" })
-  //   .then(() => console.log("Migrations complete!"))
-  //   .catch((err: any) => {
-  //     console.error("Migrations failed!", err);
-  //     process.exit(1);
-  //   });
+  migrate(db, { migrationsFolder: "./migrations" })
+    .then(() => console.log("Migrations complete!"))
+    .catch((err: any) => {
+      console.error("Migrations failed!", err);
+      process.exit(1);
+    });
 
   fastify.register(fastifyTRPCPlugin, {
     prefix: "/trpc",
