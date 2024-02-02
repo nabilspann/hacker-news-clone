@@ -8,8 +8,7 @@
     "start": "nodemon --exec \"tsx startServer.ts\" | pino-pretty",
     "build": "tsc -p tsconfig.json",
     "migrate": "drizzle-kit generate:pg --config=drizzle.config.ts",
-    "drizzle-studio": "npx drizzle-kit studio --port 5000 --verbose",
-    "prod": "fastify start -l info -a 0.0.0.0 index.ts"
+    "drizzle-studio": "npx drizzle-kit studio --port 5000 --verbose"
   },
   "exports": {
     "import": "./index.ts",
