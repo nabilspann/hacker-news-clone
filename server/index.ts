@@ -9,6 +9,13 @@ import { createContext } from "./context";
 import { pathToFileURL } from "url";
 import { PostgresJsDatabase } from "drizzle-orm/postgres-js";
 import { posts } from "./db/schemas";
+import "dotenv/config";
+
+if (!process.env.NODE_ENV) {
+  throw new Error("SPROJECT_URL is missing");
+}
+
+const devCors = process.env.NODE_ENV === "development" ? ["http://localhost:3000"] : [];
 
 export function initServer() {
   const fastify = Fastify({
@@ -16,13 +23,13 @@ export function initServer() {
   });
   fastify.register(cors, {
     origin: [
-      "http://localhost:3000",
       "https://nabil-hacker-news-clone.netlify.app",
+      ...devCors
     ],
     credentials: true,
   });
 
-  fastify.get("/.netlify/functions/server", async (req, res) => {
+  fastify.get("/", async (req, res) => {
     const postRes = await db.select().from(posts);
     console.log("postRes", postRes)
     res.send({ ping: "pong", postRes });
@@ -36,7 +43,7 @@ export function initServer() {
   //   });
 
   fastify.register(fastifyTRPCPlugin, {
-    prefix: "/.netlify/functions/server/trpc",
+    prefix: "/trpc",
     trpcOptions: {
       router: routes,
       createContext,

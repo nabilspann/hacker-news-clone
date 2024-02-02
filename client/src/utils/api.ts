@@ -7,8 +7,8 @@ import { DEV } from "solid-js";
 
 const getBaseUrl = () => {
   return DEV
-    ? `http://localhost:8888`
-    : "https://nabil-hacker-news-clone.netlify.app"
+    ? `http://localhost:8000`
+    : "https://institutional-ali-vercona.koyeb.app"
 };
 
 export const trpc = createTRPCProxyClient<Routes>({
@@ -17,7 +17,7 @@ export const trpc = createTRPCProxyClient<Routes>({
       enabled: () => import.meta.env.DEV,
     }),
     httpBatchLink({
-      url: `${getBaseUrl()}/.netlify/functions/server/trpc`,
+      url: `${getBaseUrl()}/trpc`,
       fetch: fetcher,
     }),
   ],
