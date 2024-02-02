@@ -1,6 +1,6 @@
 import { initServer } from ".";
 
-initServer().listen({ host: '0.0.0.0' }, function (err: any) {
+initServer().listen({ port: 8000, host: '0.0.0.0' }, function (err: any) {
   if (err) {
     console.error(err);
     process.exit(1);
