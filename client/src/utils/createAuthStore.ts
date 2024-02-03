@@ -17,7 +17,7 @@ const authStore = () => {
   const signOut = async () => {
     try{
       await deleteCookie(
-        DEV ? "localhost" : "nabil-hacker-news-clone"
+        DEV ? "localhost" : "institutional-ali-vercona.koyeb.app"
       );
       setIsAuthorized(false);
     }catch(err){
