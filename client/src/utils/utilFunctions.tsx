@@ -128,7 +128,7 @@ export const storeTokenFromUrl = async (location: Location<unknown>) => {
       getJwtExpirationDate(Number(expires)).toString(),
       refreshToken,
       refreshExpirationDate.toString(),
-      DEV ? "localhost" : "nabil-hacker-news-clone"
+      DEV ? "localhost" : "nabil-hacker-news-clone.netlify.app"
     );
   }
   return accessToken;
