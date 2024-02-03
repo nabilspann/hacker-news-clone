@@ -14,6 +14,12 @@
   status = 200
 
 [[redirects]]
+  from = "https://nabil-hacker-news-clone.netlify.app/trpc/*"
+  to = "https://institutional-ali-vercona.koyeb.app/trpc/:splat"
+  force = false
+  status = 200
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   force = false

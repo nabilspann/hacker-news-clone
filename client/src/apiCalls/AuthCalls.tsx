@@ -16,7 +16,10 @@ export const updateUser = async (username: string) => {
 };
 
 export const refreshSession = async () => {
-  const domain = DEV ? "localhost" : "institutional-ali-vercona.koyeb.app";
+  // const domain = DEV ? "localhost" : "institutional-ali-vercona.koyeb.app";
+  const domain = DEV
+    ? "localhost"
+    : "https://nabil-hacker-news-clone.netlify.app";
   return await trpc.auth.refreshSession.query({ domain });
 };
 
@@ -31,7 +34,6 @@ export const isAuthTokenValid = async () => {
 
 export const createCookie = async (
   accessToken: string,
-  //   accessTokenExpirationDate: Date,
   accessTokenExpirationDate: string,
   refreshToken: string,
   refreshTokenExpirationDate: string,
