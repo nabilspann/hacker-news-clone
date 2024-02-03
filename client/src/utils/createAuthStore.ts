@@ -17,7 +17,7 @@ const authStore = () => {
   const signOut = async () => {
     try{
       await deleteCookie(
-        DEV ? "localhost" : "nabil-hacker-news-clone.netlify"
+        DEV ? "localhost" : "nabil-hacker-news-clone"
       );
       setIsAuthorized(false);
     }catch(err){

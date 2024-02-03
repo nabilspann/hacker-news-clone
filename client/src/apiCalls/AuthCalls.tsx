@@ -16,7 +16,7 @@ export const updateUser = async (username: string) => {
 };
 
 export const refreshSession = async () => {
-  const domain = DEV ? "localhost" : "nabil-hacker-news-clone.netlify";
+  const domain = DEV ? "localhost" : "nabil-hacker-news-clone";
   return await trpc.auth.refreshSession.query({ domain });
 };
 
