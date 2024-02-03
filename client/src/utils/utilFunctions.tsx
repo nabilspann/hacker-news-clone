@@ -85,13 +85,14 @@ export const getSentTimeMessage = ({ minutes, hours, days, weeks, months, years 
 export const redirectAfterLogin = async (navigate: Navigator) => {
   try{
     const user = await getUser();
+    console.log("user", user)
     if (user[0] && user[0].is_sign_up) {
       navigate("/account", { replace: true });
     } else {
       navigate("/", { replace: true });
     }
   }catch(err){
-    console.log("redireAfterLogin error", err);
+    console.log("redirectAfterLogin error", err);
     navigate("/", { replace: true });
   }
 };
@@ -127,7 +128,7 @@ export const storeTokenFromUrl = async (location: Location<unknown>) => {
       getJwtExpirationDate(Number(expires)).toString(),
       refreshToken,
       refreshExpirationDate.toString(),
-      DEV ? "localhost" : "nabil-hacker-news-clone.netlify.app"
+      DEV ? "localhost" : "nabil-hacker-news-clone.netlify"
     );
   }
   return accessToken;
