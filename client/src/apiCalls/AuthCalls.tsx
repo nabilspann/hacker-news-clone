@@ -1,5 +1,6 @@
 import { DEV } from "solid-js";
 import { trpc } from "../utils/api";
+import { prodDomain } from "../utils/constants";
 
 type OAuthLinkProvider = "google" | "github";
 
@@ -16,10 +17,9 @@ export const updateUser = async (username: string) => {
 };
 
 export const refreshSession = async () => {
-  // const domain = DEV ? "localhost" : "institutional-ali-vercona.koyeb.app";
   const domain = DEV
     ? "localhost"
-    : "https://nabil-hacker-news-clone.netlify.app";
+    : `https://${prodDomain}`;
   return await trpc.auth.refreshSession.query({ domain });
 };
 

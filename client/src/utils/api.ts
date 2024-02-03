@@ -4,14 +4,10 @@ import { type inferRouterOutputs } from "@trpc/server";
 import type { Routes } from "../../../server/trpc/routes";
 import { fetcher } from "./fetcher";
 import { DEV } from "solid-js";
+import { prodDomain } from "./constants";
 
 const getBaseUrl = () => {
-  // return DEV
-  //   ? `http://localhost:8000`
-  //   : "https://institutional-ali-vercona.koyeb.app"
-  return DEV
-    ? `http://localhost:8000`
-    : "https://nabil-hacker-news-clone.netlify.app";
+  return DEV ? `http://localhost:8000` : `https://${prodDomain}`;
 };
 
 export const trpc = createTRPCProxyClient<Routes>({

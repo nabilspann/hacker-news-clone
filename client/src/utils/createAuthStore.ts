@@ -2,6 +2,7 @@ import { DEV, createRoot, createSignal } from "solid-js";
 import { Location } from "@solidjs/router";
 import { storeTokenFromUrl } from "./utilFunctions";
 import { deleteCookie, refreshSession } from "../apiCalls/AuthCalls";
+import { prodDomain } from "./constants";
 
 const authStore = () => {
   const [isAuthorized, setIsAuthorized] = createSignal<boolean>();
@@ -17,7 +18,7 @@ const authStore = () => {
   const signOut = async () => {
     try{
       await deleteCookie(
-        DEV ? "localhost" : "institutional-ali-vercona.koyeb.app"
+        DEV ? "localhost" : prodDomain
       );
       setIsAuthorized(false);
     }catch(err){
