@@ -27,14 +27,14 @@ export default publicProcedure
         ctx.setCookie(
         authTokenCookieName,
         accessToken,
-        `path=/;domain=${domain};expires=${accessTokenExpirationDate}; HttpOnly; Secure; SameSite=Strict`
+        `path=/;domain=${domain};expires=${accessTokenExpirationDate}; HttpOnly; Secure; SameSite=None`
         );
     }
     if (refreshToken && !userData.data.user) {
       ctx.setCookie(
         refreshTokenCookieName,
         refreshToken,
-        `path=/;domain=${domain};expires=${refreshTokenExpirationDate}; HttpOnly; Secure; SameSite=Strict`
+        `path=/;domain=${domain};expires=${refreshTokenExpirationDate}; HttpOnly; Secure; SameSite=None`
       );
     }
 
