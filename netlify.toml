@@ -2,6 +2,18 @@
   functions = "netlify-functions/functions"
 
 [[redirects]]
+  from = "/add-user-dev"
+  to = "/add-user-dev"
+  force = false
+  status = 200
+
+[[redirects]]
+  from = "/add-user"
+  to = "/add-user"
+  force = false
+  status = 200
+
+[[redirects]]
   from = "/*"
   to = "/index.html"
   force = false
