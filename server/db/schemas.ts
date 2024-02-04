@@ -35,7 +35,7 @@ export const comments = pgTable(commentsTableName, {
     .references(() => posts.post_id)
     .notNull(),
   created_at: timestamp("created_at").defaultNow().notNull(),
-  body: text("body"),
+  body: text("body").notNull(),
   likes: integer("likes").default(0).notNull(),
   dislikes: integer("dislikes").default(0).notNull(),
   is_deleted: boolean("is_deleted").notNull().default(false),

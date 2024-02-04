@@ -9,7 +9,6 @@ const authStore = () => {
 
   const mutateToken = async (location: Location<unknown>) => {
     const accessToken = await storeTokenFromUrl(location);
-    console.log("accessToken", accessToken)
     if(accessToken){
       setIsAuthorized(true);
     }
@@ -29,7 +28,6 @@ const authStore = () => {
   const refreshTokenState = async () => {
     try {
       const sessionData = await refreshSession();
-      console.log("sessionData", sessionData)
       if(sessionData.session){
         setIsAuthorized(true);
       }

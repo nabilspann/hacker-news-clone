@@ -33,7 +33,7 @@ const CommentsSchema: z.ZodType<Comments> = z.lazy(() =>
         username: z.string().nullable(),
         user_id: z.string().nullable(),
       }),
-      body: z.string().nullable(),
+      body: z.string(),
       created_at: z.date(),
       level: z.number(),
       is_deleted: z.boolean(),

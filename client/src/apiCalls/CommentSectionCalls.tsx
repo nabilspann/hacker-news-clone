@@ -10,6 +10,8 @@ export const getPostAndComments = async (
     limitLevel: 1
   });
 
+  console.log("getPostAndComments res", response)
+
   return response;
 };
 
