@@ -7,7 +7,6 @@ type TokenType = string | undefined;
 export function createContext(
   { req, res }: CreateFastifyContextOptions
 ) {
-  //   const user = { name: req.headers.username ?? "anonymous" };
   const cookiesArr = req.headers.cookie?.split(";") || [];
 
   let refreshToken: TokenType = undefined;

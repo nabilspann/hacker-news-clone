@@ -16,7 +16,7 @@ export const supabase = createClient(
 
 
 if (!process.env.PROJECT_URL_DEV) {
-  throw new Error("SPROJECT_URL is missing");
+  throw new Error("PROJECT_URL is missing");
 }
 
 if (!process.env.SUPABASE_KEY_DEV) {

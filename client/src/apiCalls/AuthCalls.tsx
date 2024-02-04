@@ -19,7 +19,7 @@ export const updateUser = async (username: string) => {
 export const refreshSession = async () => {
   const domain = DEV
     ? "localhost"
-    : `https://${prodDomain}`;
+    : prodDomain;
   return await trpc.auth.refreshSession.query({ domain });
 };
 
