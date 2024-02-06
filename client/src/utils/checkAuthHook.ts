@@ -11,7 +11,6 @@ const checkAuthHook = async (
 
   const isAuthorized = await isAuthTokenValid();
   setIsAuthorized(isAuthorized);
-  console.log("location?.hash.includes(#access_token)", location?.hash.includes("#access_token"))
   if (!location?.hash.includes("#access_token") && !isAuthorized) {
     await refreshTokenState();
   }

@@ -1,5 +1,5 @@
-import { Show, createEffect, createResource, createSignal } from "solid-js";
-import { useNavigate } from "@solidjs/router";
+import { ErrorBoundary, Show, createEffect, createResource, createSignal } from "solid-js";
+import { useLocation, useNavigate, useSearchParams } from "@solidjs/router";
 import { magicEmailLinkLogin, oAuthLink } from "../apiCalls/AuthCalls";
 import { formatErrorUrl } from "../utils/utilFunctions";
 import type { ErrorType } from "../utils/interfaces";
@@ -12,6 +12,7 @@ const emailRegex =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const SignIn = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { isAuthorized } = authStore;
   const [emailInput, setEmailInput] = createSignal("");
   const [settings, setSettings] = createSignal({
@@ -78,6 +79,13 @@ const SignIn = () => {
 
   return (
     <div class="flex flex-col justify-center items-center overflow-hidden h-fullScreen">
+      <Show when={searchParams.message}>
+        <ErrorBoundary fallback={() => <></>}>
+          <div class="text-cyan-400 max-w-xl text-center py-4 text-xl -mt-8">
+            {atob(searchParams.message)}
+          </div>
+        </ErrorBoundary>
+      </Show>
       <div class="flex flex-col justify-center items-center w-80 text-gray-200">
         <h2 class="text-3xl font-bold mb-10 text-zinc-300">
           Sign up or log in

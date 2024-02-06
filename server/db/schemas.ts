@@ -30,7 +30,7 @@ export const comments = pgTable(commentsTableName, {
   comment_num: integer("comment_num").notNull(),
   level: integer("level").notNull(),
   parent_id: uuid("parent_id"),
-  user_id: uuid("user_id").references(() => users.user_id),
+  user_id: uuid("user_id").references(() => users.user_id).notNull(),
   post_id: uuid("post_id")
     .references(() => posts.post_id)
     .notNull(),

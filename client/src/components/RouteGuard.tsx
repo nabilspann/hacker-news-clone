@@ -1,15 +1,20 @@
-import { Outlet, useNavigate } from "@solidjs/router";
+import { Outlet, useLocation, useNavigate } from "@solidjs/router";
 import { Show, createEffect, onMount } from "solid-js";
 import authStore from "../utils/createAuthStore";
 
 const RouteGuardSignedIn = () => {
     const navigate = useNavigate();
+    const location = useLocation();
     const { isAuthorized } = authStore;
 
     createEffect(() => {
-      console.log("Signed in?")
       if (!isAuthorized()) {
-        navigate("/signin", { replace: true });
+        let messageQuery = "";
+        if(location.pathname === "/create-post"){
+          messageQuery = btoa("Please login first before creating a post!")
+        }
+        
+        navigate(`/signin${messageQuery ? "?message=" + messageQuery : ""}`, { replace: true });
       }
     });
 
