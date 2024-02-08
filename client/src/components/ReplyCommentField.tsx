@@ -24,9 +24,10 @@ const ReplyCommentField = (props: ReplyCommentFieldProps) => {
       <textarea
         rows={"4"}
         cols={"50"}
-        class="bg-black border-2 border-white w-full"
+        class="bg-neutral-800 border-zinc-300 border-2 w-full p-2"
         value={replyText()}
         onInput={props.handleInput}
+        placeholder="Share your thoughts here!"
       />
       <div class="items-end">
         <Show when={displayCancelButton()}>

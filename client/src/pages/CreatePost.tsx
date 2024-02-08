@@ -59,7 +59,7 @@ const CreatePost = () => {
     return (
       <div class="p-5">
         <div class="mx-auto  max-w-4xl">
-          <div class="p-5">Create a post</div>
+          <div class="p-5 text-lg font-semibold">Create a post</div>
           <form
             class="flex flex-col justify-center items-end p-5"
             onSubmit={handleSubmit}
@@ -67,7 +67,7 @@ const CreatePost = () => {
             <input
               type="text"
               placeholder="Title"
-              class="w-full mb-2 px-2 py-1 text-black"
+              class="w-full mb-2 px-2 py-1 bg-neutral-800 rounded"
               value={inputs().title}
               onChange={(e) =>
                 setInputs((prev) => ({
@@ -78,7 +78,7 @@ const CreatePost = () => {
             />
             <textarea
               placeholder="Text (optional)"
-              class="w-full px-2 py-1 h-32 text-black"
+              class="w-full px-2 py-1 h-32  bg-neutral-800 rounded"
               onInput={(e) =>
                 setInputs((prev) => ({
                   ...prev,
