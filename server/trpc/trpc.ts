@@ -27,7 +27,7 @@ const isAuthorized = middleware(async (opts) => {
 
   const userData = await supabaseClient.auth.getUser(authToken);
   if (!userData.data.user) {
-    throw new TRPCError({ code: "UNAUTHORIZED" });
+    throw new TRPCError({ code: "UNAUTHORIZED", message: "Please login first!" });
   }
 
   return opts.next({

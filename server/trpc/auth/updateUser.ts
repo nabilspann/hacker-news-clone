@@ -16,6 +16,13 @@ export default protectedProcedure
     const authToken = req.ctx.authToken;
     const { data } = await supabaseClient.auth.getUser(authToken);
 
+    if(!username){
+      throw new TRPCError({
+        code: "BAD_REQUEST",
+        message: "Please enter an username!",
+      });
+    };
+
     const isBadWord = detectBadWords(username);
 
     if (isBadWord) {

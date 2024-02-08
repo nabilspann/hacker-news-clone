@@ -5,6 +5,7 @@ import { deleteComment, submitComment } from "../apiCalls/CommentSectionCalls";
 import type { Comment as CommentType, ErrorType, GetUser, PathArray } from "../utils/interfaces";
 import ReplyCommentField from "./ReplyCommentField";
 import ChildComments from "./ChildComments";
+import ReplyIcon from "./svgs/ReplyIcon";
 
 interface CommentProps {
   comment: CommentType;
@@ -64,6 +65,19 @@ const Comment = (props: CommentProps) => {
 
   const submitReply = async (e: Event) => {
     e.preventDefault();
+    if(!commentText()){
+      setSettings({
+        ...settings(),
+        error: {
+          display: true,
+          errorMessage: "Please enter a comment!",
+          type: "submission",
+          errorClass: "text-red-600",
+        },
+      });
+      return;
+    };
+  
     try{
       const response = await submitComment(
         post_id(),
@@ -99,7 +113,6 @@ const Comment = (props: CommentProps) => {
         props.deleteCommentFromStore(pathArr(), index);
       }
     }catch(err){
-      // console.log("delete err", err)
       const formattedError = formatErrorUrl(err as ErrorType);
       setSettings({
         ...settings(),
@@ -150,7 +163,13 @@ const Comment = (props: CommentProps) => {
           : "This comment has been deleted"}
       </div>
       <div>
-        <button class="py-2" onClick={handleReplyButton}>
+        <button
+          class="flex px-3 py-1 hover:bg-zinc-800 rounded-2xl font-bold"
+          onClick={handleReplyButton}
+        >
+          <div class="mr-1">
+            <ReplyIcon size={25} />
+          </div>
           Reply
         </button>
         <Show

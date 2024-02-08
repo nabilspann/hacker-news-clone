@@ -63,7 +63,6 @@ const Post = () => {
     getPostAndComments
   );
 
-  // const [user] = createResource<GetUser>(getUser);
   const [user, setUser] = createSignal<GetUser>([]);
 
   onMount(async () => {
@@ -186,34 +185,25 @@ const Post = () => {
         );
       }}
     >
-      <div class="flex flex-col items-center justify-center">
+      <div class="flex flex-col items-center justify-center p-8">
         <div class="max-w-3xl w-full">
           <Show when={singlePost() && singlePost()?.post}>
-            <div class="flex items-center">
-              <div class="text-xl font-medium">{singlePost()!.post.title}</div>
-              <div class="ml-2 text-sm text-slate-300">
-                - Posted by {singlePost()!.post.user.username}{" "}
-                {getSentTimeMessage(
-                  calcTimeDifference(
-                    new Date(),
-                    new Date(singlePost()!.post.created_at)
-                  )
-                )}
+            <div class="bg-zinc-800 p-5 rounded-xl">
+              <div class="flex items-center">
+                <div class="text-xl font-medium">
+                  {singlePost()!.post.title}
+                </div>
+                <div class="ml-2 text-sm text-slate-300">
+                  - Posted by {singlePost()!.post.user.username}{" "}
+                  {getSentTimeMessage(
+                    calcTimeDifference(
+                      new Date(),
+                      new Date(singlePost()!.post.created_at)
+                    )
+                  )}
+                </div>
               </div>
-            </div>
-            <div class="p-2">{singlePost()!.post.description}</div>
-            <button
-              class="py-2"
-              onClick={() =>
-                setSettings((currentSettings) => ({
-                  ...currentSettings,
-                  displayForm: !currentSettings.displayForm,
-                }))
-              }
-            >
-              Reply
-            </button>
-            <Show when={settings().displayForm}>
+              <div class="p-2">{singlePost()!.post.description}</div>
               <ReplyCommentField
                 replyText={commentText()}
                 username={singlePost()!.post.user.username}
@@ -227,8 +217,9 @@ const Post = () => {
                 handleInput={(e) =>
                   handleCommentInput((e.target as HTMLInputElement).value)
                 }
+                displayCancelButton={false}
               />
-            </Show>
+            </div>
           </Show>
           <Show
             when={
@@ -245,6 +236,7 @@ const Post = () => {
               comments={singlePost()!.comments}
               isTopLevelComment={true}
               numOfChildren={singlePost()!.post.num_of_children}
+              displayVerticalLine={false}
               handleCommentsPagination={() => {
                 let latestCommentNum;
                 if (singlePost()!.comments.length !== 0) {

@@ -5,6 +5,7 @@ import { type GetUser, type ErrorType, GetProtectedUserData } from "../utils/int
 import CurrentlySending from "../components/CurrentlySending";
 import DisplayUserInfo from "../components/DisplayUserInfo";
 import CustomErrorBoundary from "../components/CustomErrorBoundary";
+import SubmitInput from "../components/SubmitInput";
 
 const userNameNotFound = () => {
     return(
@@ -36,6 +37,16 @@ const Account = () => {
 
     const submit = async (e: Event) => {
         e.preventDefault();
+
+        if(!usernameInput()){
+           setSettings((currentSettings) => ({
+             ...currentSettings,
+             errorMessage: "Please enter an username!",
+             successMessage: "",
+             isSending: false,
+           }));
+           return;
+        };
 
         setSettings((currentSettings) => ({
           ...currentSettings,
@@ -129,11 +140,7 @@ const Account = () => {
               onChange={(e) => setUsernameInput(e.target.value)}
             />
             <Show when={!settings().isSending} fallback={CurrentlySending()}>
-              <input
-                type="submit"
-                class="btn btn-primary mt-2"
-                value="Submit"
-              />
+              <SubmitInput />
             </Show>
           </form>
           <Show when={settings().errorMessage}>

@@ -1,6 +1,5 @@
 import { comments } from "../../db/schemas";
 
-
 /***   INPUT   ***/
 import { createInsertSchema } from "drizzle-zod";
 const createCommentInput = createInsertSchema(comments).pick({
@@ -10,7 +9,6 @@ const createCommentInput = createInsertSchema(comments).pick({
   body: true,
 });
 
-
 /***   Query   ***/
 import { kyselyDb } from "../../db/kyselyDb";
 import { protectedProcedure } from "../trpc";
@@ -19,6 +17,13 @@ export default protectedProcedure
     .mutation(async (req) => {
       const { parent_id, level, post_id, body } = req.input;
       const user_id = req.ctx.user.id;
+
+      if(!body){
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Please enter a comment!",
+        });
+      };
 
       const response = await kyselyDb
         .with("comment_pagination", (withQuery) => {
@@ -75,7 +80,6 @@ export default protectedProcedure
         ])
         .execute();
 
-      console.log("response", response);
       const innerResponse = response[0];
       const formattedComment = [
         {
@@ -104,6 +108,7 @@ export default protectedProcedure
 /***   Demo   ***/
 // npm run demo:trpc messages/createComment
 import type { DemoClient } from "../routes";
+import { TRPCError } from "@trpc/server";
 export async function demo(trpc: DemoClient) {
   const Baam = "05aaaae2-cfb3-4c0b-9431-f0dc451c4b22";
   return Promise.all([ 

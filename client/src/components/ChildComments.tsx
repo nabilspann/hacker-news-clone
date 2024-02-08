@@ -1,4 +1,4 @@
-import { For, JSX, Show, createSignal } from "solid-js";
+import { For, JSX, Show, createSignal, mergeProps } from "solid-js";
 import type {
   Comment as CommentType,
   ErrorType
@@ -12,10 +12,12 @@ interface ChildCommentsProps {
   handleCommentsPagination: () => void;
   isTopLevelComment: boolean;
   numOfChildren: number;
+  displayVerticalLine?: boolean;
 };
 
 const ChildComments = (props: ChildCommentsProps) => {
-    const { comments, isTopLevelComment, numOfChildren } = destructure(props);
+    const mergedProps = mergeProps({ displayVerticalLine: true }, props);
+    const { comments, isTopLevelComment, numOfChildren, displayVerticalLine } = destructure(mergedProps);
     const [settings, setSettings] = createSignal({
         isExpanded: false,
         isLoading: false,
@@ -62,17 +64,21 @@ const ChildComments = (props: ChildCommentsProps) => {
     return (
       <>
         <Show when={numOfChildren() && !isTopLevelComment()}>
-          <button onClick={handleExpand}>
+          <button class="p-1" onClick={handleExpand}>
             {settings().isExpanded ? "-" : "+"}
           </button>
         </Show>
         <Show when={settings().isExpanded || isTopLevelComment()}>
-          {props.children}
+          <div class="flex">
+            <Show when={displayVerticalLine()}>
+              <div class="w-4 cursor-pointer" onClick={handleExpand}>
+                <i class="w-1/2 h-full block border-r-2 border-zinc-300"></i>
+              </div>
+            </Show>
+            <div>{props.children}</div>
+          </div>
           <Show
-            when={
-              comments().length < numOfChildren() &&
-              !settings().isLoading
-            }
+            when={comments().length < numOfChildren() && !settings().isLoading}
           >
             <div class="ml-5">
               <button onClick={handleLoadMoreComments}>
