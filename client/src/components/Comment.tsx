@@ -34,7 +34,7 @@ interface Settings {
   displayForm: boolean;
   isLoading: boolean;
   error: {
-    type: "" | "deletion" | "submission" | "reply_button";
+    type: "" | "deletion" | "submission" | "reply_button" | "pagination";
     errorMessage: string;
     errorClass: string;
     display: boolean;
@@ -145,6 +145,59 @@ const Comment = (props: CommentProps) => {
     }
   }
 
+  const handleCommentsPagination = () => {
+    let latestCommentNum;
+    if (comment().comments.length !== 0) {
+      latestCommentNum =
+        comment().comments[comment().comments.length - 1].row_num;
+    } else {
+      latestCommentNum = 0;
+    }
+    props.handleCommentsPagination(
+      comment().comment_id,
+      latestCommentNum,
+      4,
+      comment().level + 1,
+      pathArr()
+    );
+  }
+
+  const handleLoadMoreComments = () => {
+    setSettings((currentSettings) => ({
+      ...currentSettings,
+      isLoading: true,
+    }));
+    try {
+      handleCommentsPagination();
+      setSettings((currentSettings) => ({
+        ...currentSettings,
+        isLoading: false,
+      }));
+    } catch (err) {
+      const formattedError = formatErrorUrl(err as ErrorType);
+      setSettings((currentSettings) => ({
+        ...currentSettings,
+        isLoading: false,
+        error: {
+          type: 'pagination',
+          display: true,
+          errorClass: '',
+          errorMessage: formattedError.errorMessage,
+        },
+      }));
+    }
+  };
+
+  const handleExpand = () => {
+    setSettings((currentSettings) => ({
+      ...currentSettings,
+      isExpanded: !currentSettings.isExpanded,
+    }));
+    if (comment().comments.length === 0) {
+      handleLoadMoreComments();
+    }
+  };
+
   return (
     <li class="py-5">
       <div class="flex items-center">
@@ -162,7 +215,12 @@ const Comment = (props: CommentProps) => {
           ? comment().body
           : "This comment has been deleted"}
       </div>
-      <div>
+      <div class="flex">
+        <Show when={comment().num_of_children}>
+          <button class="p-1" onClick={handleExpand}>
+            {settings().isExpanded ? "-" : "+"}
+          </button>
+        </Show>
         <button
           class="flex px-3 py-1 hover:bg-zinc-800 rounded-2xl font-bold"
           onClick={handleReplyButton}
@@ -220,22 +278,9 @@ const Comment = (props: CommentProps) => {
         comments={comment().comments}
         isTopLevelComment={false}
         numOfChildren={comment().num_of_children}
-        handleCommentsPagination={() => {
-          let latestCommentNum;
-          if (comment().comments.length !== 0) {
-            latestCommentNum =
-              comment().comments[comment().comments.length - 1].row_num;
-          } else {
-            latestCommentNum = 0;
-          }
-          return props.handleCommentsPagination(
-            comment().comment_id,
-            latestCommentNum,
-            4,
-            comment().level + 1,
-            pathArr()
-          );
-        }}
+        handleCommentsPagination={handleLoadMoreComments}
+        handleExpand={handleExpand}
+        settings={settings()}
       >
         <ul class="ml-5">
           <For each={comment().comments}>

@@ -6,72 +6,44 @@ import type {
 import { destructure } from "@solid-primitives/destructure";
 import { formatErrorUrl } from "../utils/utilFunctions";
 
+interface ErrorObj {
+  type: "" | "deletion" | "submission" | "reply_button" | "pagination";
+  errorMessage: string;
+  display: boolean;
+};
+
+interface Settings {
+  isExpanded: boolean;
+  isLoading: boolean;
+  error: {
+    type: "" | "deletion" | "submission" | "reply_button" | "pagination";
+    errorMessage: string;
+    display: boolean;
+  };
+}
+
 interface ChildCommentsProps {
   comments: CommentType[];
   children: JSX.Element;
-  handleCommentsPagination: () => void;
+  handleCommentsPagination: (() => Promise<void>) | (() => void);
   isTopLevelComment: boolean;
   numOfChildren: number;
   displayVerticalLine?: boolean;
+  handleExpand: (() => Promise<void>) | (() => void);
+  settings: Settings;
 };
+
 
 const ChildComments = (props: ChildCommentsProps) => {
     const mergedProps = mergeProps({ displayVerticalLine: true }, props);
-    const { comments, isTopLevelComment, numOfChildren, displayVerticalLine } = destructure(mergedProps);
-    const [settings, setSettings] = createSignal({
-        isExpanded: false,
-        isLoading: false,
-        error: {
-            display: false,
-            errorMessage: "",
-        },
-    });
-
-    const handleLoadMoreComments = async () => {
-        setSettings((currentSettings) => ({
-          ...currentSettings,
-          isLoading: true,
-        }));
-        try{
-            await props.handleCommentsPagination();
-            setSettings((currentSettings) => ({
-              ...currentSettings,
-              isLoading: false,
-            }));
-        }catch(err){
-            const formattedError = formatErrorUrl(err as ErrorType);
-            setSettings((currentSettings) => ({
-              ...currentSettings,
-              isLoading: false,
-              error: {
-                display: true,
-                errorMessage: formattedError.errorMessage,
-              },
-            }));
-        }
-    }
-
-    const handleExpand = async () => {
-      setSettings((currentSettings) => ({
-        ...currentSettings,
-        isExpanded: !currentSettings.isExpanded,
-      }));
-      if(comments().length === 0){
-        await handleLoadMoreComments();
-      }
-    };
+    const { comments, isTopLevelComment, numOfChildren, displayVerticalLine, settings } = destructure(mergedProps);
 
     return (
       <>
-        <Show when={numOfChildren() && !isTopLevelComment()}>
-          <button class="p-1" onClick={handleExpand}>
-            {settings().isExpanded ? "-" : "+"}
-          </button>
-        </Show>
         <Show when={settings().isExpanded || isTopLevelComment()}>
           <div class="flex">
             <Show when={displayVerticalLine()}>
-              <div class="w-4 cursor-pointer" onClick={handleExpand}>
+              <div class="w-4 cursor-pointer" onClick={props.handleExpand}>
                 <i class="w-1/2 h-full block border-r-2 border-zinc-300"></i>
               </div>
             </Show>
@@ -81,7 +53,7 @@ const ChildComments = (props: ChildCommentsProps) => {
             when={comments().length < numOfChildren() && !settings().isLoading}
           >
             <div class="ml-5">
-              <button onClick={handleLoadMoreComments}>
+              <button onClick={props.handleCommentsPagination}>
                 Load more comments
               </button>
             </div>
@@ -89,7 +61,11 @@ const ChildComments = (props: ChildCommentsProps) => {
           <Show when={settings().isLoading}>
             <div>Loading...</div>
           </Show>
-          <Show when={settings().error.display}>
+          <Show
+            when={
+              settings().error.display && settings().error.type === "pagination"
+            }
+          >
             <div class="text-red-600">{settings().error.errorMessage}</div>
           </Show>
         </Show>

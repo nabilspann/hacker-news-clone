@@ -44,11 +44,21 @@ function resourceStore<T, S>(watcher:ResourceSource<S>, fetcher:ResourceFetcher<
   return [status, { mutate: setStore, refetch }] as [Resource<T>, {mutate:  SetStoreFunction<T[]>, refetch: typeof refetch}]
 }
 
+interface Settings {
+  displayForm: boolean;
+  isLoading: boolean;
+  error: {
+    type: "" | "deletion" | "submission" | "reply_button" | "pagination";
+    errorMessage: string;
+    display: boolean;
+  };
+}
+
 const Post = () => {
   const params = useParams();
   const { isAuthorized } = authStore;
   const [commentText, setCommentText] = createSignal("");
-  const [settings, setSettings] = createSignal({
+  const [settings, setSettings] = createSignal<Settings>({
     displayForm: false,
     isLoading: false,
     error: {
@@ -172,6 +182,39 @@ const Post = () => {
     }
   };
 
+  const handleLoadMoreComments = async () => {
+    setSettings((currentSettings) => ({
+      ...currentSettings,
+      isLoading: true,
+    }));
+    try {
+      let latestCommentNum;
+      if (singlePost()!.comments.length !== 0) {
+        latestCommentNum =
+          singlePost()!.comments[singlePost()!.comments.length - 1].row_num;
+      } else {
+        latestCommentNum = 0;
+      }
+      await handleCommentsPagination(null, latestCommentNum, 4, 0, []);
+      setSettings((currentSettings) => ({
+        ...currentSettings,
+        isLoading: false,
+      }));
+    } catch (err) {
+      const formattedError = formatErrorUrl(err as ErrorType);
+      setSettings((currentSettings) => ({
+        ...currentSettings,
+        isLoading: false,
+        error: {
+          type: 'pagination',
+          display: true,
+          errorClass: '',
+          errorMessage: formattedError.errorMessage,
+        },
+      }));
+    }
+  };
+
   return (
     <ErrorBoundary
       fallback={() => {
@@ -237,23 +280,9 @@ const Post = () => {
               isTopLevelComment={true}
               numOfChildren={singlePost()!.post.num_of_children}
               displayVerticalLine={false}
-              handleCommentsPagination={() => {
-                let latestCommentNum;
-                if (singlePost()!.comments.length !== 0) {
-                  latestCommentNum =
-                    singlePost()!.comments[singlePost()!.comments.length - 1]
-                      .row_num;
-                } else {
-                  latestCommentNum = 0;
-                }
-                return handleCommentsPagination(
-                  null,
-                  latestCommentNum,
-                  4,
-                  0,
-                  []
-                );
-              }}
+              handleCommentsPagination={handleLoadMoreComments}
+              handleExpand={async () => {}}
+              settings={{ ...settings(), isExpanded: true }}
             >
               <ul class="ml-5">
                 <For each={singlePost()!.comments}>
