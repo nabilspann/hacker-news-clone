@@ -5,11 +5,10 @@ import {
 export const usersTableName = 'profiles'
 export const users = pgTable(usersTableName, {
   user_id: uuid("user_id").primaryKey().defaultRandom().notNull(),
-  username: text("username").unique().notNull(),
+  username: text("username").notNull(),
   created_at: timestamp("created_at").defaultNow().notNull(),
   is_sign_up: boolean("is_sign_up").notNull().default(false),
 });
-
 
 export const postsTableName = 'posts'
 export const posts = pgTable(postsTableName, {
@@ -22,7 +21,6 @@ export const posts = pgTable(postsTableName, {
   created_at: timestamp("created_at").defaultNow().notNull(),
   num_of_children: integer("num_of_children").notNull().default(0),
 });
-
 
 export const commentsTableName = 'comments'
 export const comments = pgTable(commentsTableName, {
