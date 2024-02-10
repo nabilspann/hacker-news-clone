@@ -47,7 +47,7 @@ const Comment = (props: CommentProps) => {
 
   const [commentText, setCommentText] = createSignal('');
   const [settings, setSettings] = createSignal<Settings>({
-    isExpanded: false,
+    isExpanded: comment().comments.length !== 0 ? true : false,
     displayForm: false,
     isLoading: false,
     error: {
@@ -145,7 +145,7 @@ const Comment = (props: CommentProps) => {
     }
   }
 
-  const handleCommentsPagination = () => {
+  const handleCommentsPagination = async () => {
     let latestCommentNum;
     if (comment().comments.length !== 0) {
       latestCommentNum =
@@ -153,7 +153,7 @@ const Comment = (props: CommentProps) => {
     } else {
       latestCommentNum = 0;
     }
-    props.handleCommentsPagination(
+    await props.handleCommentsPagination(
       comment().comment_id,
       latestCommentNum,
       4,
@@ -162,13 +162,13 @@ const Comment = (props: CommentProps) => {
     );
   }
 
-  const handleLoadMoreComments = () => {
+  const handleLoadMoreComments = async () => {
     setSettings((currentSettings) => ({
       ...currentSettings,
       isLoading: true,
     }));
     try {
-      handleCommentsPagination();
+      await handleCommentsPagination();
       setSettings((currentSettings) => ({
         ...currentSettings,
         isLoading: false,
@@ -188,13 +188,13 @@ const Comment = (props: CommentProps) => {
     }
   };
 
-  const handleExpand = () => {
+  const handleExpand = async () => {
     setSettings((currentSettings) => ({
       ...currentSettings,
       isExpanded: !currentSettings.isExpanded,
     }));
     if (comment().comments.length === 0) {
-      handleLoadMoreComments();
+      await handleLoadMoreComments();
     }
   };
 

@@ -25,14 +25,13 @@ interface Settings {
 interface ChildCommentsProps {
   comments: CommentType[];
   children: JSX.Element;
-  handleCommentsPagination: (() => Promise<void>) | (() => void);
+  handleCommentsPagination: () => Promise<void>;
   isTopLevelComment: boolean;
   numOfChildren: number;
   displayVerticalLine?: boolean;
-  handleExpand: (() => Promise<void>) | (() => void);
+  handleExpand: () => Promise<void>;
   settings: Settings;
 };
-
 
 const ChildComments = (props: ChildCommentsProps) => {
     const mergedProps = mergeProps({ displayVerticalLine: true }, props);

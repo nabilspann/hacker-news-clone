@@ -9,7 +9,6 @@ export function createContext(
 ) {
   const cookiesArr = req.headers.cookie?.split(";") || [];
 
-  console.log("cookiesArr", cookiesArr);
   let refreshToken: TokenType = undefined;
   let authToken: TokenType = undefined;
   cookiesArr?.forEach((cookie) => {
