@@ -47,5 +47,7 @@ This is in API under settings in Supabase. This is under the same settings as th
 #### ENV for the netlify-functions folder.
 
 ```SUPABASE_KEY``` and ```SUPABASE_KEY_DEV``` have the same values as in the server ENV for production and development respectively.
+
 ```PROJECT_URL``` and ```PROJECT_URL_DEV``` have the same values as in the server ENV for production and development respectively.
+
 ```AUTHORIZATION_KEY``` and ```AUTHORIZATION_KEY_DEV``` are randomnly generated characters used to authorize webhook calls. See more under "Supabase webhooks" section earlier.
