@@ -20,11 +20,13 @@ For front end and netlify functions, we use netlify to host. The application is 
 
 ```add-user``` is a netlify serverless function which is being called by a webhook from Supabase to automatically generate an username in profile table when an user gets authenticated by Supabase. There are two functions for development and production each. 
 
+
 #### Supabase webhooks
 
 To create a webhook, go to this page in your Supabase project: https://supabase.com/dashboard/project/_/database/hooks. The webhook should look something like this:
 ![supabase webhook](images/supabase-webhook.png)
 The name of the webhook can be anything. Authorization value in http headers will be randomnly generated characters. Make sure this same value is in netlify project environment variables as ```AUTHORIZATION_KEY```. For development, it will have a separate variable as ```AUTHORIZATION_KEY_DEV```.
+
 
 ### Environment variables needed
 
@@ -43,6 +45,7 @@ Copy the connection string and pass the password you used to create the database
 ```SUPABASE_KEY```
 This is in API under settings in Supabase. This is under the same settings as the PROJECT_URL is in.
 ![alt text](images/supabase-key.png)
+
 
 #### ENV for the netlify-functions folder.
 
