@@ -38,8 +38,10 @@ To run netlify-functions in development, you will need to install netlify client
   <div><code>DATABASE_URL</code> Copy the connection string and pass the password you used to create the database into the connection string.</div>
   <img src="images/connection-string.png" alt="connection string" />
   <br/>
+  <br/>
   <div><code>PROJECT_URL</code></div>
   <img src="images/project-url.png" alt="project url" />
+  <br/>
   <br/>
   <div><code>SUPABASE_KEY</code> This is in API under settings in Supabase. This is under the same settings as the PROJECT_URL is in.</div>
   <img src="images/supabase-key.png" alt="alt text" />
