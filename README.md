@@ -8,11 +8,12 @@ Live site: https://nabil-hacker-news-clone.netlify.app/
 <img src="images/hacker-news-clone-example.png" alt="post example" height="400" />
 
 
-For development, you will use two terminals for front-end and back-end each running ```npm start``` command in ```/client``` and ```/server``` directories.
 
 To run netlify-functions in development, you will need to install netlify client first: https://docs.netlify.com/cli/get-started/. The server can then be started by running ```npm start``` under ```/netlify-functions``` folder. To run ```npm run test-query``` command, you will need to create a ```testQueries.ts``` file directly under ```/netlify-functions``` folder. This file can make fetch calls to ```http://localhost:8888/add-user-dev``` to test the function.
 
 <h2>Project Setup</h2>
+
+<div>For development, you will use two terminals for front-end and back-end each running <code>npm start</code> command in <code>/client</code> and <code>/server</code> directories.</div>
 <details>
   <summary>  <h3> Hosting services </h3> </summary>
   <h4>Netlify</h4>
