@@ -34,11 +34,11 @@ To run netlify-functions in development, you will need to install netlify client
   <div>These values will be different for development and production because there are separate Supabase project databases for each environment.</div>
   <div><code>NODE_ENV</code> = "development" or "production"</div>
   <div><code>DATABASE_URL</code> Copy the connection string and pass the password you used to create the database into the connection string.</div>
-  <img src="images/connection-string.png" width="600" alt="connection string" />
+  <img src="images/connection-string.png" alt="connection string" />
   <div><code>PROJECT_URL</code></div>
-  <img src="images/project-url.png" width="600" alt="project url" />
+  <img src="images/project-url.png" alt="project url" />
   <div><code>SUPABASE_KEY</code> This is in API under settings in Supabase. This is under the same settings as the PROJECT_URL is in.</div>
-  <img src="images/supabase-key.png" width="600" alt="alt text" />
+  <img src="images/supabase-key.png" alt="alt text" />
 
   <h4>ENV for the server folder</h4>
   <div><code>SUPABASE_KEY</code> and <code>SUPABASE_KEY_DEV</code> have the same values as in the server ENV for production and development respectively.</div>
