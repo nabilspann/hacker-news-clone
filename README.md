@@ -23,9 +23,9 @@ Live site: https://nabil-hacker-news-clone.netlify.app/
   <div>For front end and netlify functions, we use netlify to host. The application is deployed directly from Github with this build</div>
   <img src="images/netlify-build.png" height="400" alt="netlify build" />
   <div><code>add-use</code> is a netlify serverless function which is being called by a webhook from Supabase to automatically generate an username in profile table when an user gets authenticated by Supabase. There are two functions for development and production each.</div>
-  <div>Serverless netlify functions are being utlized because publicly exposed endpoints are needed to allow Supabase to access in dev environment.</div>
+  <div>The Supabase-Auth webhook requires a publicly exposed endpoint to trigger the add-user function.  Since Fastify on localhost is not public, a Netlify Serverless Function is used as it is accessible in both Dev and Production environments.</div>
 </details>
-  
+
 <details>
   <summary><h4>Auth-Webhook (Supabase)</h4></summary>
 
