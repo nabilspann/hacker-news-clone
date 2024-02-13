@@ -43,7 +43,7 @@ To run netlify-functions in development, you will need to install netlify client
   <h4>ENV for the server folder</h4>
   <div><code>SUPABASE_KEY</code> and <code>SUPABASE_KEY_DEV</code> have the same values as in the server ENV for production and development respectively.</div>
   <div><code>PROJECT_URL</code> and <code>PROJECT_URL_DEV</code> have the same values as in the server ENV for production and development respectively.</div>
-  <div><code>AUTHORIZATION_KEY</code> and <code>AUTHORIZATION_KEY_DEV</code> have the same values as in the server ENV for production and development respectively.</div>
+  <div class="mt-5"><code>AUTHORIZATION_KEY</code> and <code>AUTHORIZATION_KEY_DEV</code> have the same values as in the server ENV for production and development respectively.</div>
 </details>
 
 <!-- ### Hosting services -->
