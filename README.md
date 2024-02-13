@@ -12,7 +12,7 @@ For development, you will use two terminals for front-end and back-end each runn
 
 To run netlify-functions in development, you will need to install netlify client first: https://docs.netlify.com/cli/get-started/. The server can then be started by running ```npm start``` under ```/netlify-functions``` folder. To run ```npm run test-query``` command, you will need to create a ```testQueries.ts``` file directly under ```/netlify-functions``` folder. This file can make fetch calls to ```http://localhost:8888/add-user-dev``` to test the function.
 
-<h2>Project Setup<h2>
+<h2>Project Setup</h2>
 <details>
   <summary>  <h3> Hosting services </h3> </summary>
   <h4>Netlify</h4>
