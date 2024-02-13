@@ -5,7 +5,9 @@ This is a hacker-news-clone using SolidJS for the frontend and a fastify web-ser
 Live site: https://nabil-hacker-news-clone.netlify.app/
 
 #### Example
+<center>
 <img src="images/hacker-news-clone-example.png" alt="post example" height="400" />
+</center>
 
 
 
