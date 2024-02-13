@@ -5,7 +5,6 @@ This is a hacker-news-clone using SolidJS for the frontend and a fastify web-ser
 Live site: https://nabil-hacker-news-clone.netlify.app/
 
 #### Example
-![post example](images/hacker-news-clone-example.png)
 <img src="images/hacker-news-clone-example.png" alt="post example" height="400" />
 
 
@@ -28,7 +27,8 @@ To run netlify-functions in development, you will need to install netlify client
   <div>To create a webhook, go to this page in your Supabase project: https://supabase.com/dashboard/project/_/database/hooks. The webhook should look something like this:</div>
   <img src="images/supabase-webhook.png" height="400" alt="supabase webhook" />
   <div>The name of the webhook can be anything. Authorization value in http headers will be randomnly generated characters. Make sure this same value is in netlify project environment variables as <code>AUTHORIZATION_KEY</code>. For development, it will have a separate variable as <code>AUTHORIZATION_KEY_DEV</code>.</div>
-
+</details>
+<details>
   <summary>  <h3> Environment variables needed </h3> </summary>
   <h4>ENV for the server folder</h4>
   <div>These values will be different for development and production because there are separate Supabase project databases for each environment.</div>
