@@ -11,8 +11,9 @@ Live site: https://nabil-hacker-news-clone.netlify.app/
 
 <h2>Project Setup</h2>
 
-<div>For development, you will use two terminals for front-end and back-end each running <code>npm start</code> command in <code>/client</code> and <code>/server</code> directories.</div>
-<div>To run netlify-functions in development, you will need to install netlify client first: https://docs.netlify.com/cli/get-started/. The server can then be started by running <code>npm start</code> under <code>/netlify-functions</code> folder. To run <code>npm run test-query</code> command, you will need to create a ```testQueries.ts``` file directly under ```/netlify-functions``` folder. This file can make fetch calls to ```http://localhost:8888/add-user-dev``` to test the function.</div>
+<div>For development, you can run both server and client by running <code>npm start</code> at the root of the project</div>
+<br />
+<div>To run netlify-functions in development, you will need to install netlify client first: https://docs.netlify.com/cli/get-started/. The server can then be started by running <code>npm start</code> under <code>/netlify-functions</code> folder. To run <code>npm run test-query</code> command, you will need to create a <code>testQueries.ts</code> file directly under <code>/netlify-functions</code> folder. This file can make fetch calls to <code>http://localhost:8888/add-user-dev</code> to test the function.</div>
 <h3> Hosting services </h3>
 <details>
   <summary>  <h4>Netlify</h4> </summary>
@@ -23,7 +24,7 @@ Live site: https://nabil-hacker-news-clone.netlify.app/
 </details>
   
 <details>
-  <summary>  <h4>Auth-Webhook (Supabase): </h4> </summary>
+  <summary>  <h4>Auth-Webhook (Supabase) </h4> </summary>
 
   
   <div>To create a webhook, go to this page in your Supabase project: https://supabase.com/dashboard/project/_/database/hooks. The webhook should look something like this:</div>
