@@ -1,6 +1,7 @@
 import { destructure } from "@solid-primitives/destructure";
 import { Show, mergeProps } from "solid-js";
 import SubmitInput from "./SubmitInput";
+import protectedEventHandler from "../utils/protectedEventHandler";
 
 interface ReplyCommentFieldProps {
   handleSubmit: (e: Event) => void;
@@ -14,8 +15,12 @@ interface ReplyCommentFieldProps {
 const ReplyCommentField = (props: ReplyCommentFieldProps) => {
   const mergedProps = mergeProps({ displayCancelButton: true }, props);
   const { displayCancelButton, replyText, username } = destructure(mergedProps);
+
   return (
-    <form onSubmit={props.handleSubmit} class="flex flex-col mt-3">
+    <form
+      onSubmit={(e) => protectedEventHandler(e, props.handleSubmit)}
+      class="flex flex-col mt-3"
+    >
       <label class="text-sm text-gray-200 my-1">
         {username()
           ? `Replying to ${username()}`
@@ -28,6 +33,7 @@ const ReplyCommentField = (props: ReplyCommentFieldProps) => {
         value={replyText()}
         onInput={props.handleInput}
         placeholder="Share your thoughts here!"
+        onClick={protectedEventHandler}
       />
       <div class="items-end">
         <Show when={displayCancelButton()}>

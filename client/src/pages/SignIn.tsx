@@ -1,5 +1,6 @@
-import { ErrorBoundary, Show, createEffect, createResource, createSignal } from "solid-js";
-import { useLocation, useNavigate, useSearchParams } from "@solidjs/router";
+import { Show, createEffect, createResource, createSignal } from "solid-js";
+import { useNavigate } from "@solidjs/router";
+import { autofocus } from "@solid-primitives/autofocus";
 import { magicEmailLinkLogin, oAuthLink } from "../apiCalls/AuthCalls";
 import { formatErrorUrl } from "../utils/utilFunctions";
 import type { ErrorType } from "../utils/interfaces";
@@ -7,28 +8,35 @@ import CurrentlySending from "../components/CurrentlySending";
 import GoogleLogo from "../components/svgs/GoogkLogo";
 import GitHubLogo from "../components/svgs/GithubLogo";
 import authStore from "../utils/createAuthStore";
+import clickOutside from "../utils/directives/clickOutside";
+import trapFocus from "../utils/directives/trapFocus";
+
+clickOutside;
+trapFocus;
+autofocus;
 
 const emailRegex =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const SignIn = () => {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const { isAuthorized } = authStore;
+  const { isAuthorized, mutateSignInModal } = authStore;
   const [emailInput, setEmailInput] = createSignal("");
   const [settings, setSettings] = createSignal({
     emailLinkSignIn: {
       errorMessage: "",
       successMessage: "",
       isSending: false,
-    }
+    },
   });
   const [googleOAuthLink] = createResource("google", oAuthLink);
   const [gitHubOAuthLink] = createResource("github", oAuthLink);
+  const [firstEle, setFirstEle] = createSignal<HTMLElement>();
+  const [lastEle, setLastEle] = createSignal<HTMLElement>();
 
   createEffect(() => {
-     if (isAuthorized()) {
-       navigate("/account", { replace: true });
-     }
+    if (isAuthorized()) {
+      navigate("/account", { replace: true });
+    }
   });
 
   const submit = async (e: Event) => {
@@ -42,8 +50,8 @@ const SignIn = () => {
         isSending: true,
       },
     }));
-    if(isEmailValid){
-      try{
+    if (isEmailValid) {
+      try {
         await magicEmailLinkLogin(emailInput());
         setSettings((currentSettings) => ({
           ...currentSettings,
@@ -54,7 +62,7 @@ const SignIn = () => {
           },
         }));
         setEmailInput("");
-      }catch(err){
+      } catch (err) {
         const formattedError = formatErrorUrl(err as ErrorType);
         setSettings((currentSettings) => ({
           ...currentSettings,
@@ -65,7 +73,7 @@ const SignIn = () => {
           },
         }));
       }
-    }else{
+    } else {
       setSettings((currentSettings) => ({
         ...currentSettings,
         emailLinkSignIn: {
@@ -77,16 +85,29 @@ const SignIn = () => {
     }
   };
 
+  const getEleRefs = () => {
+    return {
+      firstEle: firstEle(),
+      lastEle: lastEle(),
+    };
+  };
+
   return (
-    <div class="flex flex-col justify-center items-center overflow-hidden h-fullScreen">
-      <Show when={searchParams.message}>
-        <ErrorBoundary fallback={() => <></>}>
-          <div class="text-cyan-400 max-w-xl text-center py-4 text-xl -mt-8">
-            {atob(searchParams.message)}
-          </div>
-        </ErrorBoundary>
-      </Show>
+    <div
+      class="flex flex-col justify-center items-center bg-zinc-900 p-5 rounded-lg sticky"
+      use:clickOutside={() => mutateSignInModal(false)}
+      use:trapFocus={() => getEleRefs()}
+    >
       <div class="flex flex-col justify-center items-center w-80 text-gray-200">
+        <button
+          class="self-end -mt-5 -mr-3 text-xl cursor-pointer"
+          onClick={() => mutateSignInModal(false)}
+          ref={setFirstEle}
+          use:autofocus
+          autofocus
+        >
+          &#x2715;
+        </button>
         <h2 class="text-3xl font-bold mb-10 text-zinc-300">
           Sign up or log in
         </h2>
@@ -137,6 +158,7 @@ const SignIn = () => {
               type="submit"
               class="btn btn-primary mt-2 cursor-pointer py-3 px-5 bg-purple-900 rounded-lg"
               value="Proceed with Email"
+              ref={setLastEle}
             />
           </Show>
           <Show when={settings().emailLinkSignIn.errorMessage}>

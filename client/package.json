@@ -20,6 +20,7 @@
     "vite-plugin-solid": "^2.7.0"
   },
   "dependencies": {
+    "@solid-primitives/autofocus": "^0.0.109",
     "@solid-primitives/destructure": "^0.1.14",
     "@solid-primitives/resource": "^0.1.0",
     "@solid-primitives/storage": "^2.1.1",

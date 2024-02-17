@@ -1,11 +1,21 @@
 import { For, Show, createSignal } from "solid-js";
 import { destructure } from "@solid-primitives/destructure";
-import { calcTimeDifference, formatErrorUrl, getSentTimeMessage } from "../utils/utilFunctions";
+import {
+  calcTimeDifference,
+  formatErrorUrl,
+  getSentTimeMessage,
+} from "../utils/utilFunctions";
 import { deleteComment, submitComment } from "../apiCalls/CommentSectionCalls";
-import type { Comment as CommentType, ErrorType, GetUser, PathArray } from "../utils/interfaces";
+import type {
+  Comment as CommentType,
+  ErrorType,
+  GetUser,
+  PathArray,
+} from "../utils/interfaces";
 import ReplyCommentField from "./ReplyCommentField";
 import ChildComments from "./ChildComments";
 import ReplyIcon from "./svgs/ReplyIcon";
+import protectedEventHandler from "../utils/protectedEventHandler";
 
 interface CommentProps {
   comment: CommentType;
@@ -38,24 +48,23 @@ interface Settings {
     errorMessage: string;
     errorClass: string;
     display: boolean;
-  }
+  };
 }
 
 const Comment = (props: CommentProps) => {
-  const { comment, post_id, pathArr, user } =
-    destructure(props);
+  const { comment, post_id, pathArr, user } = destructure(props);
 
-  const [commentText, setCommentText] = createSignal('');
+  const [commentText, setCommentText] = createSignal("");
   const [settings, setSettings] = createSignal<Settings>({
     isExpanded: comment().comments.length !== 0 ? true : false,
     displayForm: false,
     isLoading: false,
     error: {
-      type: '',
+      type: "",
       display: false,
-      errorMessage: '',
-      errorClass: ''
-    }
+      errorMessage: "",
+      errorClass: "",
+    },
   });
 
   const timeDifference = calcTimeDifference(
@@ -65,7 +74,7 @@ const Comment = (props: CommentProps) => {
 
   const submitReply = async (e: Event) => {
     e.preventDefault();
-    if(!commentText()){
+    if (!commentText()) {
       setSettings({
         ...settings(),
         error: {
@@ -76,18 +85,26 @@ const Comment = (props: CommentProps) => {
         },
       });
       return;
-    };
-  
-    try{
+    }
+
+    try {
       const response = await submitComment(
         post_id(),
         comment().level + 1,
         commentText(),
         comment().comment_id
       );
-      props.addCommentToStore(pathArr(), response, "submission", comment().num_of_children);
-      setSettings((currentSettings) => ({...currentSettings, displayForm: false }));
-    }catch(err){
+      props.addCommentToStore(
+        pathArr(),
+        response,
+        "submission",
+        comment().num_of_children
+      );
+      setSettings((currentSettings) => ({
+        ...currentSettings,
+        displayForm: false,
+      }));
+    } catch (err) {
       const formattedError = formatErrorUrl(err as ErrorType);
       setSettings({
         ...settings(),
@@ -103,16 +120,16 @@ const Comment = (props: CommentProps) => {
 
   const handleCommentInput = (textAreaValue: string) => {
     setCommentText(textAreaValue);
-  }
+  };
 
   const handleDeleteComment = async () => {
     const index = pathArr()[pathArr().length - 2];
-    try{
-      if (typeof index === 'number'){
+    try {
+      if (typeof index === "number") {
         await deleteComment(comment().comment_id);
         props.deleteCommentFromStore(pathArr(), index);
       }
-    }catch(err){
+    } catch (err) {
       const formattedError = formatErrorUrl(err as ErrorType);
       setSettings({
         ...settings(),
@@ -127,23 +144,23 @@ const Comment = (props: CommentProps) => {
   };
 
   const handleReplyButton = () => {
-    if(user()){
+    if (user()) {
       setSettings((currentSettings) => ({
         ...currentSettings,
         displayForm: !currentSettings.displayForm,
       }));
-    }else{
+    } else {
       setSettings((currentSettings) => ({
         ...currentSettings,
         error: {
           display: true,
-          type: 'reply_button',
-          errorMessage: 'Please login first before replying!',
-          errorClass: "text-blue-600"
-        }
+          type: "reply_button",
+          errorMessage: "Please login first before replying!",
+          errorClass: "text-blue-600",
+        },
       }));
     }
-  }
+  };
 
   const handleCommentsPagination = async () => {
     let latestCommentNum;
@@ -160,7 +177,7 @@ const Comment = (props: CommentProps) => {
       comment().level + 1,
       pathArr()
     );
-  }
+  };
 
   const handleLoadMoreComments = async () => {
     setSettings((currentSettings) => ({
@@ -179,9 +196,9 @@ const Comment = (props: CommentProps) => {
         ...currentSettings,
         isLoading: false,
         error: {
-          type: 'pagination',
+          type: "pagination",
           display: true,
-          errorClass: '',
+          errorClass: "",
           errorMessage: formattedError.errorMessage,
         },
       }));
@@ -223,7 +240,7 @@ const Comment = (props: CommentProps) => {
         </Show>
         <button
           class="flex px-3 py-1 hover:bg-zinc-800 rounded-2xl font-bold"
-          onClick={handleReplyButton}
+          onClick={(e) => protectedEventHandler(e, handleReplyButton)}
         >
           <div class="mr-1">
             <ReplyIcon size={25} />

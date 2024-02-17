@@ -6,6 +6,7 @@ import { prodDomain } from "./constants";
 
 const authStore = () => {
   const [isAuthorized, setIsAuthorized] = createSignal<boolean>();
+  const [displaySignInModal, setDisplaySignInModal] = createSignal(false);
 
   const mutateToken = async (location: Location<unknown>) => {
     const accessToken = await storeTokenFromUrl(location);
@@ -37,8 +38,19 @@ const authStore = () => {
     }
   };
 
+  const mutateSignInModal = (display: boolean | null = null) => {
+    setDisplaySignInModal((prev) => (display === null ? !prev : display));
+  };
 
-  return { mutateToken, signOut, refreshTokenState, isAuthorized, setIsAuthorized };
+  return {
+    displaySignInModal,
+    mutateSignInModal,
+    mutateToken,
+    signOut,
+    refreshTokenState,
+    isAuthorized,
+    setIsAuthorized,
+  };
 };
 
 export default createRoot(authStore);

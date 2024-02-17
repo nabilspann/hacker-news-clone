@@ -21,3 +21,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.layout {
+  display: grid; 
+  grid-template-columns: 100%; 
+  grid-template-rows: 100%;
+}
+
+.overlay {
+  grid-area: 1/1;
+}
+
+.login-modal {
+  background: rgba(39, 39, 42, 0.5);
+}
