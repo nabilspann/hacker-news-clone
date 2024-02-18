@@ -30,8 +30,6 @@ const SignIn = () => {
   });
   const [googleOAuthLink] = createResource("google", oAuthLink);
   const [gitHubOAuthLink] = createResource("github", oAuthLink);
-  const [firstEle, setFirstEle] = createSignal<HTMLElement>();
-  const [lastEle, setLastEle] = createSignal<HTMLElement>();
 
   createEffect(() => {
     if (isAuthorized()) {
@@ -85,24 +83,16 @@ const SignIn = () => {
     }
   };
 
-  const getEleRefs = () => {
-    return {
-      firstEle: firstEle(),
-      lastEle: lastEle(),
-    };
-  };
-
   return (
     <div
       class="flex flex-col justify-center items-center bg-zinc-900 p-5 rounded-lg sticky"
       use:clickOutside={() => mutateSignInModal(false)}
-      use:trapFocus={() => getEleRefs()}
+      use:trapFocus
     >
       <div class="flex flex-col justify-center items-center w-80 text-gray-200">
         <button
           class="self-end -mt-5 -mr-3 text-xl cursor-pointer"
           onClick={() => mutateSignInModal(false)}
-          ref={setFirstEle}
           use:autofocus
           autofocus
         >
@@ -158,7 +148,6 @@ const SignIn = () => {
               type="submit"
               class="btn btn-primary mt-2 cursor-pointer py-3 px-5 bg-purple-900 rounded-lg"
               value="Proceed with Email"
-              ref={setLastEle}
             />
           </Show>
           <Show when={settings().emailLinkSignIn.errorMessage}>
