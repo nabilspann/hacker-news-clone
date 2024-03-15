@@ -5,3 +5,4 @@ dist
 .netlify
 testQueries.ts
 koyeb.exe
+demo.ts
